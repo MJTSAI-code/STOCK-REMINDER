@@ -2,31 +2,34 @@ name: 美股精選情報室
 
 on:
   schedule:
-    # 📝 智慧時區防線：提前到台灣時間 05:00 與 17:00 喚醒
-    - cron: '0 21 * * *'
-    - cron: '0 9 * * *'
-  workflow_dispatch:
+    # 📝 定時排線（覆蓋早晚的夏令與冬令時間）
+    - cron: '0 21 * * *'  # 👈 台灣時間 05:00（冬令早上發射 / 夏令早上攔截）
+    - cron: '0 22 * * *'  # 👈 台灣時間 06:00（夏令早上發射）
+    - cron: '0 9 * * *'   # 👈 台灣時間 17:00（冬令晚上發射 / 夏令晚上攔截）
+    - cron: '0 10 * * *'  # 👈 台灣時間 18:00（夏令晚上發射）
+  workflow_dispatch:      # 👈 手動觸發，任何時間點按都會秒發射！
 
-# 🔐 最高權限防線：保證定時執行時也絕對讀得到 Token
 permissions: write-all
 
 jobs:
   send-push:
     runs-on: ubuntu-latest
     steps:
-      - name: 檢查並鎖定台灣絕對時間
+      - name: 檢查並精準發送台灣絕對時間
         run: |
           export TZ="Asia/Taipei"
           CURRENT_HOUR=$(date +%H)
-          echo "當前台北時間的整點為: ${CURRENT_HOUR} 點"
+          CURRENT_MONTH=$(date +%m)
+          echo "當前台北時間的整點為: ${CURRENT_HOUR} 點，月份為: ${CURRENT_MONTH} 月"
           
-          # 🕒 夏令時間防線：如果是 05 點或 17 點，代表夏令時間提早到了，先沉睡 60 分鐘再發送
-          if [ "$CURRENT_HOUR" = "05" ] || [ "$CURRENT_HOUR" = "17" ]; then
-            echo "偵測到目前為夏令時間，機器人開始沉睡 60 分鐘..."
-            sleep 3600
+          # ⚠️ 夏令時間攔截防線：
+          # 2026 年 6 月是夏令時間，當系統在 05 點或 17 點自動喚醒時，會直接攔截不發射（留給 06 點和 18 點發射）。
+          if { [ "$CURRENT_HOUR" = "05" ] || [ "$CURRENT_HOUR" = "17" ]; } && [ "$CURRENT_MONTH" -ge 3 ] && [ "$CURRENT_MONTH" -le 11 ]; then
+            echo "目前為夏令月份，05點與17點不發射，留給06點與18點排程。收工！"
+            exit 0
           fi
           
-          # 🎯 這裡才是正確位置！不管是手動還是定時，沉睡完後絕對會執行發送！
-          TEXT="🛡️ 美股情報室數據已更新！%0A🚀 開啟儀表板：%0Ahttps://mjtsai-code.github.io/STOCK_ALERT/"
+          # 🚀 【不換行排版】拿掉網址前的 %0A，讓網址直接黏在「開啟儀表板：」後面！
+          TEXT="🛡️ 美股情報室數據已更新！%0A🚀 開啟儀表板：https://mjtsai-code.github.io/STOCK_ALERT/"
           
           curl -s -X POST "https://api.telegram.org/bot${{ secrets.TELEGRAM_TOKEN }}/sendMessage?chat_id=${{ secrets.TELEGRAM_CHAT_ID }}&text=${TEXT}&disable_web_page_preview=true"
