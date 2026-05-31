@@ -4,10 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#0a0a0f">
+
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="盤前情報">
-<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="./icon-192.png">
+
+<link rel="manifest" href="./manifest.json">
+
 <title>盤前情報</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Noto+Sans+TC:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
@@ -83,6 +87,7 @@
     <div class="alarm-chip-dot"></div>
     <div class="alarm-chip-label">早盤 06:00</div>
   </div>
+  <div class="alarm-strip">
   <div class="alarm-chip active" id="chip-evening" onclick="toggleAlarm('evening')">
     <div class="alarm-chip-dot"></div>
     <div class="alarm-chip-label">盤前 18:00</div>
@@ -99,7 +104,7 @@ const API_KEY = "d8e124pr01qhm4ai0etgd8e124pr01qhm4ai0eu0";
 
 const STOCKS = [
   { sym: 'TTAN', label: 'NOW',  name: 'ServiceTitan', exchange: 'NASDAQ' },
-  { sym: 'NVDA', label: 'NVDA', name: 'Nvidia',       exchange: 'NASDAQ' },
+  { sym: 'NVDA', label: 'NVDA', name: 'Nvidia',      exchange: 'NASDAQ' },
   { sym: 'LITE', label: 'LITE', name: 'Lumentum',     exchange: 'NASDAQ' },
   { sym: 'ONDS', label: 'ONDS', name: 'Ondas 無人機', exchange: 'NASDAQ' },
   { sym: 'MRVL', label: 'MRVL', name: 'Marvell',      exchange: 'NASDAQ' },
@@ -255,7 +260,7 @@ async function triggerAlarm(label) {
   if (Notification.permission === 'granted') {
     new Notification(`📊 ${label}快報`, {
       body: 'NOW NVDA LITE ONDS MRVL GOOG 最新行情已更新',
-      icon: 'icon-192.png'
+      icon: './icon-192.png'
     });
   }
   fetchAll();
@@ -274,8 +279,18 @@ async function requestNotification() {
   }
 }
 
+// 執行畫面渲染與資料抓取
 buildGrid();
 fetchAll();
+
+// 💡 核心修正：在此處註冊 Service Worker 檔案 (sw.js)
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./sw.js')
+      .then(reg => console.log('PWA Service Worker 註冊成功！範圍:', reg.scope))
+      .catch(err => console.error('PWA Service Worker 註冊失敗:', err));
+  });
+}
 </script>
 </body>
 </html>
