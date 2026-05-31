@@ -17,50 +17,28 @@
     --accent: #c8ff00; --accent2: #00d4ff; --text: #e8e8f0;
     --muted: #5a5a7a; --up: #39ff8a; --down: #ff4d6d; --discord: #5865F2;
   }
-  
-  /* 鎖死全域左右滑動，僅允許上下垂直滾動 */
-  html {
-    overflow-x: hidden;
-    width: 100%;
-    height: 100%;
-  }
-
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  
-  body { 
-    background: var(--bg); 
-    color: var(--text); 
-    font-family: 'Noto Sans TC', sans-serif; 
-    font-weight: 300; 
-    min-height: 100vh; 
-    padding-bottom: 40px; 
-    max-width: 1200px; 
-    margin: 0 auto; 
-    overflow-x: hidden; /* 強制 body 左右鎖死 */
-    width: 100%;
-    position: relative;
-  }
-  
+  html, body { overflow-x: hidden; width: 100%; height: 100%; margin: 0; padding: 0; box-sizing: border-box; }
+  * { box-sizing: inherit; }
+  body { background: var(--bg); color: var(--text); font-family: 'Noto Sans TC', sans-serif; font-weight: 300; min-height: 100vh; padding-bottom: 40px; max-width: 1200px; margin: 0 auto; position: relative; }
   header, .hero, .control-strip { padding: 16px 20px 0; display: flex; align-items: center; justify-content: space-between; width: 100%; }
   header { padding-top: 18px; }
   .logo { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.15em; color: var(--muted); text-transform: uppercase; }
-  .clock, .hero-sub, .status-label, .card-price-chg { font-family: 'DM Mono', monospace; }
+  .clock, .hero-sub, .status-label, .card-price-chg, .card-news-item .news-time, .detail-news-meta { font-family: 'DM Mono', monospace; }
   .clock, .hero-sub { font-size: 11px; color: var(--muted); }
   .hero { padding-bottom: 10px; }
   .hero-time { font-family: 'DM Mono', monospace; font-size: 32px; font-weight: 500; line-height: 1; }
   .hero-time span { color: var(--accent); }
   .hero-sub { margin-top: 4px; }
-  .control-strip { padding-bottom: 14px; clear: both; }
+  .control-strip { padding-bottom: 14px; }
   .status-chip { background: var(--surface); border: 1px solid var(--border); border-radius: 100px; padding: 6px 12px; display: flex; align-items: center; gap: 6px; }
   .status-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 6px var(--accent); animation: blink 2s infinite; }
   .status-label { font-size: 10px; color: var(--accent); }
   .refresh-btn { background: rgba(0,212,255,0.1); border: 1px solid var(--accent2); border-radius: 100px; padding: 6px 14px; font-size: 11px; color: var(--accent2); cursor: pointer; transition: all 0.2s; }
   .refresh-btn:active, .discord-btn:active { transform: scale(0.95); }
   
-  /* 預設手機版 1 欄排版，並限制寬度防止溢出 */
-  .grid { display: grid; grid-template-columns: 1fr; gap: 12px; padding: 0 16px 12px; clear: both; width: 100%; }
+  .grid { display: grid; grid-template-columns: 1fr; gap: 12px; padding: 0 16px 12px; width: 100%; }
   .card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 16px; cursor: pointer; transition: border-color 0.2s; min-height: 105px; display: flex; flex-direction: column; justify-content: space-between; width: 100%; overflow: hidden; }
-  .card.expanded { border-color: var(--accent2); grid-column: 1 / -1; }
+  .card.expanded { border-color: var(--accent2); }
   .card-top { display: flex; justify-content: space-between; align-items: flex-start; width: 100%; }
   .card-sym { font-family: 'DM Mono', monospace; font-size: 13px; font-weight: 500; color: var(--accent2); }
   .card-name { font-size: 9px; color: var(--muted); margin-top: 1px; }
@@ -68,38 +46,37 @@
   .card-price-num { font-family: 'DM Mono', monospace; font-size: 17px; font-weight: 500; }
   .card-price-chg { font-size: 10px; margin-top: 1px; }
   .up { color: var(--up); } .down { color: var(--down); } .neutral { color: var(--muted); }
-  .card-news { border-top: 1px solid var(--border); padding-top: 8px; margin-top: 8px; width: 100%; }
+  .card-news { border-top: 1px solid var(--border); padding-top: 8px; margin-top: 8px; width: 100%; transition: all 0.2s; }
+  
+  /* 💡 核心優化：當卡片被展開 (.expanded) 時，將外層預覽的兩條新聞標題直接隱藏 */
+  .card.expanded .card-news { display: none; }
+  
   .card-news-item { font-size: 11px; color: var(--muted); line-height: 1.5; padding: 3px 0; border-bottom: 1px solid rgba(255,255,255,0.04); text-overflow: ellipsis; overflow: hidden; white-space: nowrap; width: 100%; }
   .card-news-item:last-child { border-bottom: none; }
   .card-news-item a { color: var(--text); text-decoration: none; display: block; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; width: 100%; }
-  .card-news-item .news-time, .detail-news-meta { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--muted); margin-top: 1px; }
+  .card-news-item .news-time { font-size: 9px; color: var(--muted); margin-top: 1px; }
   .card-detail { display: none; margin-top: 12px; border-top: 1px solid var(--border); padding-top: 12px; width: 100%; }
   .card.expanded .card-detail { display: block; }
   .chart-box { border-radius: 10px; overflow: hidden; border: 1px solid var(--border); height: 240px; margin-bottom: 10px; width: 100%; }
   .chart-box iframe { width: 100%; height: 100%; border: none; }
   .detail-news-item { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px; margin-bottom: 6px; text-decoration: none; display: block; width: 100%; }
   .detail-news-title { font-size: 12px; color: var(--text); line-height: 1.5; }
-  .detail-news-meta { margin-top: 3px; display: block; }
+  .detail-news-meta { margin-top: 3px; display: block; font-size: 9px; color: var(--muted); }
   
-  /* 防止 Discord 面板溢出與按鈕樣式 */
   .discord-box { margin: 12px 16px; padding: 16px; background: rgba(88,101,242,0.03); border: 1px solid rgba(88,101,242,0.15); border-radius: 16px; display: flex; flex-direction: column; gap: 10px; }
   .discord-title { font-size: 12px; font-weight: 500; color: #5865F2; display: flex; align-items: center; gap: 6px; text-transform: uppercase; letter-spacing: 0.05em; }
-  .discord-text { font-size: 11px; color: var(--muted); line-height: 1.6; }
+  .discord-text { font-size: 11px; color: var(--muted); line-height: 1.7; }
+  .discord-highlight { color: var(--accent); border: 1px solid var(--accent); border-radius: 100px; padding: 1px 7px; font-size: 10px; font-weight: 500; display: inline-block; background: rgba(200, 255, 0, 0.05); margin: 0 2px; line-height: 1.2; vertical-align: middle; }
   
-  /* 雙按鈕群組排版 */
   .discord-btn-group { display: flex; flex-direction: column; gap: 8px; width: 100%; }
   .discord-btn { width: 100%; padding: 12px; background: var(--discord); color: #fff; border: none; border-radius: 12px; font-family: 'Noto Sans TC', sans-serif; font-size: 12px; font-weight: 500; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none; transition: all 0.2s; }
-  
-  /* 訂閱按鈕的外框樣式 */
   .discord-btn-join { background: transparent; border: 1.5px solid var(--discord); color: #fff; }
   .discord-btn-join:active { background: rgba(88,101,242,0.15); }
   
-  /* 底部說明限制寬度 */
   .notice { margin: 0 16px; padding: 10px 12px; background: rgba(0, 212, 255, 0.05); border: 1px solid rgba(0, 212, 255, 0.2); border-radius: 10px; font-size: 10px; color: var(--accent2); line-height: 1.7; }
   .loading-dot { display: inline-block; animation: blink 1s infinite; }
   @keyframes blink { 0%,100%{opacity:0.2} 50%{opacity:1} }
 
-  /* 💻 電腦與平板自適應排版 */
   @media (min-width: 600px) {
     .hero-time { font-size: 48px; }
     .grid { grid-template-columns: repeat(2, 1fr); gap: 12px; padding: 0 20px 20px; }
@@ -139,14 +116,15 @@
 <div class="discord-box">
   <div class="discord-title"><span>🛡️</span> 24H 雲端自動推送已部署</div>
   <div class="discord-text">
-    無須保持網頁開啟，GitHub 雲端腳本將在每日 <b>06:00</b> 與 <b>18:00</b> 自動抓取行情並推送至您的 Discord 頻道。
+    無須保持網頁開啟，GitHub 雲端腳本將在每日 <span class="discord-highlight">早上 06:00</span> 與 <span class="discord-highlight">晚上 18:00</span> 自動抓取行情並推送至您的 Discord 頻道。
   </div>
   <div class="discord-btn-group">
-    <!-- 💡 提示：請將下方兩個 href="https://discord.gg/" 都替換為你的 Discord 專屬永久邀請連結 -->
-    <a class="discord-btn" href=https://discord.gg/vzVbybVvys" target="_blank">
+    <!-- 💡 提示：第一個填「聊天大廳連結」 -->
+    <a class="https://discord.gg/vzVbybVvys" target="_blank">
       📱 進入我的美股精選情報室
     </a>
-    <a class="discord-btn discord-btn-join"https://discord.gg/vzVbybVvys" target="_blank">
+    <!-- 💡 提示：第二個填「唯讀播報頻道連結」 -->
+    <a class="https://discord.gg/vzVbybVvys" target="_blank">
       ⚡ 訂閱我的美股推送播報
     </a>
   </div>
@@ -263,3 +241,14 @@ if ('serviceWorker' in navigator && (window.location.protocol === 'http:' || win
 </script>
 </body>
 </html>
+```
+eof
+
+---
+
+### 🛠️ 這次更新做了哪些改善？
+
+1. **一擊必殺隱藏舊新聞**：
+   在 CSS 的第 **53 行** 加上了這一條高難度的前端優化規則：
+   ```css
+   .card.expanded .card-news { display: none; }
