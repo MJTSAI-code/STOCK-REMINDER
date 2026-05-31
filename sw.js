@@ -1,44 +1,51 @@
-// 1. 定義快取名稱與需要離線儲存的檔案清單
-const CACHE_NAME = 'stock-reminder-v2';
+const CACHE_NAME = 'stock-reminder-v4';
 const ASSETS = [
   './',
   './index.html',
   './manifest.json'
 ];
 
-// 2. Install 事件：當手機第一次偵測到這個網站時，把核心檔案下載到手機硬碟裡
+// 安裝事件：快取基礎靜態資源（網頁外殼與設定）
 self.addEventListener('install', event => {
   event.waitUntil(
     caches.open(CACHE_NAME).then(cache => {
-      console.log('專案核心檔案已成功下載至手機本地快取！');
+      console.log('[Service Worker] 開始下載最新 v4 靜態快取...');
       return cache.addAll(ASSETS);
     })
   );
-  self.skipWaiting(); // 讓新版本的 Service Worker 立即生效，不需等待舊版關閉
+  self.skipWaiting();
 });
 
-// 3. Activate 事件：清除舊版本的快取，保持手機空間乾淨
+// 激活事件：清除舊版快取，強制瀏覽器立刻套用最新的 index.html 樣式
 self.addEventListener('activate', event => {
   event.waitUntil(
     caches.keys().then(keys => {
       return Promise.all(
         keys.map(key => {
           if (key !== CACHE_NAME) {
-            console.log('正在清除舊的暫存檔案：', key);
+            console.log('[Service Worker] 刪除舊過期快取:', key);
             return caches.delete(key);
           }
         })
       );
     })
   );
-  self.clients.claim(); // 讓 Service Worker 立即取得網頁的控制權
+  self.clients.claim();
 });
 
-// 4. Fetch 事件：當手機網路很爛或斷網時，直接從手機硬碟撈網頁給使用者看（實現秒開與離線瀏覽）
+// 攔截請求：智慧型路由分流
 self.addEventListener('fetch', event => {
+  const url = new URL(event.request.url);
+
+  // 💡 關鍵優化：如果是 Finnhub API 或 TradingView 圖表，直接走網路，不使用任何快取以確保數據即時
+  if (url.hostname.includes('finnhub.io') || url.hostname.includes('tradingview.com')) {
+    event.respondWith(fetch(event.request));
+    return;
+  }
+
+  // 靜態資源（網頁外殼）：快取優先，若無快取則由網路下載，確保沒網路時也能秒開 App
   event.respondWith(
     caches.match(event.request).then(cachedResponse => {
-      // 如果硬碟有快取就用快取，沒有的話就走網路下載
       return cachedResponse || fetch(event.request);
     })
   );
