@@ -19,7 +19,8 @@
   }
   html, body { overflow-x: hidden; width: 100%; height: 100%; margin: 0; padding: 0; box-sizing: border-box; }
   * { box-sizing: inherit; }
-  body { background: var(--bg); color: var(--text); font-family: 'Noto Sans TC', sans-serif; font-weight: 300; min-height: 100vh; padding-bottom: 40px; max-width: 1200px; margin: 0 auto; position: relative; }
+  /* ⚡ 修正桌面版寬度：擴展 max-width 至 1800px，完美適應 1920*1080 滿版大螢幕 */
+  body { background: var(--bg); color: var(--text); font-family: 'Noto Sans TC', sans-serif; font-weight: 300; min-height: 100vh; padding-bottom: 40px; max-width: 1800px; margin: 0 auto; position: relative; }
   header, .hero, .control-strip { padding: 16px 20px 0; display: flex; align-items: center; justify-content: space-between; width: 100%; }
   header { padding-top: 18px; }
   .logo { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.15em; color: var(--muted); text-transform: uppercase; }
@@ -55,7 +56,7 @@
   .card-news-item .news-time { font-size: 9px; color: var(--muted); margin-top: 1px; }
   .card-detail { display: none; margin-top: 12px; border-top: 1px solid var(--border); padding-top: 12px; width: 100%; }
   .card.expanded .card-detail { display: block; }
-  .chart-box { border-radius: 10px; overflow: hidden; border: 1px solid var(--border); height: 240px; margin-bottom: 10px; width: 100%; }
+  .chart-box { border-radius: 10px; overflow: hidden; border: 1px solid var(--border); height: 380px; margin-bottom: 10px; width: 100%; } /* ⚡ 桌面版展開 K 線高度同步優化，大螢幕看更清晰 */
   .chart-box iframe { width: 100%; height: 100%; border: none; }
   .detail-news-item { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px; margin-bottom: 6px; text-decoration: none; display: block; width: 100%; }
   .detail-news-title { font-size: 12px; color: var(--text); line-height: 1.5; }
@@ -75,15 +76,22 @@
   .loading-dot { display: inline-block; animation: blink 1s infinite; }
   @keyframes blink { 0%,100%{opacity:0.2} 50%{opacity:1} }
 
+  /* ⚡ 桌面版自適應 RWD 控制：完美撐滿 1920*1080 大螢幕 */
   @media (min-width: 600px) {
     .hero-time { font-size: 48px; }
-    .grid { grid-template-columns: repeat(2, 1fr); gap: 12px; padding: 0 20px 20px; }
+    .grid { grid-template-columns: repeat(2, 1fr); gap: 14px; padding: 0 20px 20px; }
     .discord-box, .notice { margin: 0 20px 12px; }
     .discord-btn-group { flex-direction: row; }
     .discord-btn { flex: 1; }
   }
   @media (min-width: 1024px) {
     .grid { grid-template-columns: repeat(3, 1fr); }
+  }
+  /* ⚡ 針對 1920 高清電腦螢幕的大滿版優化：讓 6 檔個股一條線排開，視覺極致震撼 */
+  @media (min-width: 1400px) {
+    .grid { grid-template-columns: repeat(6, 1fr); gap: 16px; padding: 0 20px 24px; }
+    header, .hero, .control-strip { padding: 24px 20px 0; }
+    .discord-box, .notice { margin: 0 20px 16px; }
   }
 </style>
 </head>
@@ -213,7 +221,7 @@ async function fetchStock(sym) {
 
   try {
     const today = new Date(), from = new Date(today - 7 * 24 * 60 * 60 * 1000), fmt = d => d.toISOString().split('T')[0];
-    const res = await fetch(`https://finnhub.io/api/v1/company-news?symbol=${sym}&from=${fmt(from)}&to=${fmt(today)}&token=${API_KEY}`), items = await res.json();
+    const res = await fetch(`https://finnhub.io/api/v1/company-news?symbol=${sym}&from={from}&to={fmt(today)}&token=${API_KEY}`), items = await res.json();
     newsCache[sym] = items;
     const newsBox = document.getElementById(`news-${sym}`);
     if (items?.length > 0) {
