@@ -12,307 +12,56 @@
 <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Noto+Sans+TC:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #0a0a0f;
-    --surface: #12121a;
-    --border: #1e1e2e;
-    --accent: #c8ff00;
-    --accent2: #00d4ff;
-    --text: #e8e8f0;
-    --muted: #5a5a7a;
-    --up: #39ff8a;
-    --down: #ff4d6d;
-    --warn: #ffb800;
+    --bg: #0a0a0f; --surface: #12121a; --border: #1e1e2e;
+    --accent: #c8ff00; --accent2: #00d4ff; --text: #e8e8f0;
+    --muted: #5a5a7a; --up: #39ff8a; --down: #ff4d6d; --warn: #ffb800;
   }
-
   * { margin: 0; padding: 0; box-sizing: border-box; }
-
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: 'Noto Sans TC', sans-serif;
-    font-weight: 300;
-    min-height: 100vh;
-    padding: 0 0 80px;
-  }
-
-  header {
-    padding: 20px 20px 0;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-
-  .logo {
-    font-family: 'DM Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 0.15em;
-    color: var(--muted);
-    text-transform: uppercase;
-  }
-
-  .clock {
-    font-family: 'DM Mono', monospace;
-    font-size: 11px;
-    color: var(--muted);
-    letter-spacing: 0.05em;
-  }
-
-  .hero {
-    padding: 32px 20px 20px;
-  }
-
-  .hero-time {
-    font-family: 'DM Mono', monospace;
-    font-size: 52px;
-    font-weight: 500;
-    line-height: 1;
-    letter-spacing: -0.02em;
-    color: var(--text);
-  }
-
+  body { background: var(--bg); color: var(--text); font-family: 'Noto Sans TC', sans-serif; font-weight: 300; min-height: 100vh; padding: 0 0 40px; }
+  header { padding: 18px 20px 0; display: flex; align-items: center; justify-content: space-between; }
+  .logo { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.15em; color: var(--muted); text-transform: uppercase; }
+  .clock { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--muted); }
+  .hero { padding: 16px 20px 10px; display: flex; align-items: center; justify-content: space-between; }
+  .hero-time { font-family: 'DM Mono', monospace; font-size: 40px; font-weight: 500; line-height: 1; color: var(--text); }
   .hero-time span { color: var(--accent); }
-
-  .hero-sub {
-    font-size: 12px;
-    color: var(--muted);
-    margin-top: 8px;
-    letter-spacing: 0.08em;
-  }
-
-  .alarm-strip {
-    display: flex;
-    gap: 10px;
-    padding: 16px 20px;
-    overflow-x: auto;
-    scrollbar-width: none;
-  }
-
-  .alarm-chip {
-    flex-shrink: 0;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 100px;
-    padding: 8px 16px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    cursor: pointer;
-    transition: all 0.2s;
-  }
-
-  .alarm-chip.active {
-    border-color: var(--accent);
-    background: rgba(200,255,0,0.05);
-  }
-
-  .alarm-chip-dot {
-    width: 6px; height: 6px;
-    border-radius: 50%;
-    background: var(--muted);
-  }
-
-  .alarm-chip.active .alarm-chip-dot {
-    background: var(--accent);
-    box-shadow: 0 0 6px var(--accent);
-  }
-
-  .alarm-chip-label {
-    font-family: 'DM Mono', monospace;
-    font-size: 12px;
-    color: var(--muted);
-  }
-
+  .hero-sub { font-size: 11px; color: var(--muted); margin-top: 4px; }
+  .alarm-strip { display: flex; gap: 8px; padding: 0 20px 14px; }
+  .alarm-chip { flex-shrink: 0; background: var(--surface); border: 1px solid var(--border); border-radius: 100px; padding: 6px 12px; display: flex; align-items: center; gap: 6px; cursor: pointer; transition: all 0.2s; }
+  .alarm-chip.active { border-color: var(--accent); background: rgba(200,255,0,0.05); }
+  .alarm-chip-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--muted); }
+  .alarm-chip.active .alarm-chip-dot { background: var(--accent); box-shadow: 0 0 5px var(--accent); }
+  .alarm-chip-label { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--muted); }
   .alarm-chip.active .alarm-chip-label { color: var(--accent); }
-
-  .section-label {
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 0.15em;
-    color: var(--muted);
-    text-transform: uppercase;
-    padding: 0 20px;
-    margin-bottom: 12px;
-  }
-
-  .tickers {
-    padding: 0 20px;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 8px;
-    margin-bottom: 24px;
-  }
-
-  .ticker-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 14px;
-    transition: border-color 0.2s;
-  }
-
-  .ticker-card:active { border-color: var(--muted); }
-
-  .ticker-sym {
-    font-family: 'DM Mono', monospace;
-    font-size: 13px;
-    font-weight: 500;
-    color: var(--accent2);
-    margin-bottom: 4px;
-  }
-
-  .ticker-name {
-    font-size: 10px;
-    color: var(--muted);
-    margin-bottom: 10px;
-  }
-
-  .ticker-price {
-    font-family: 'DM Mono', monospace;
-    font-size: 18px;
-    font-weight: 500;
-  }
-
-  .ticker-change {
-    font-family: 'DM Mono', monospace;
-    font-size: 11px;
-    margin-top: 2px;
-  }
-
-  .up { color: var(--up); }
-  .down { color: var(--down); }
-  .neutral { color: var(--muted); }
-
-  .report-box {
-    margin: 0 20px 24px;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    overflow: hidden;
-  }
-
-  .report-header {
-    padding: 14px 16px;
-    border-bottom: 1px solid var(--border);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-
-  .report-title {
-    font-family: 'DM Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 0.1em;
-    color: var(--muted);
-  }
-
-  .report-badge {
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    padding: 3px 8px;
-    border-radius: 100px;
-    background: rgba(200,255,0,0.1);
-    color: var(--accent);
-    border: 1px solid rgba(200,255,0,0.2);
-  }
-
-  .report-content {
-    padding: 16px;
-    font-size: 13px;
-    line-height: 1.8;
-    color: var(--text);
-    min-height: 80px;
-  }
-
-  .report-content.loading {
-    color: var(--muted);
-    font-style: italic;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .dot-pulse {
-    display: inline-flex;
-    gap: 4px;
-  }
-
-  .dot-pulse span {
-    width: 4px; height: 4px;
-    border-radius: 50%;
-    background: var(--muted);
-    animation: pulse 1.2s infinite;
-  }
-
-  .dot-pulse span:nth-child(2) { animation-delay: 0.2s; }
-  .dot-pulse span:nth-child(3) { animation-delay: 0.4s; }
-
-  @keyframes pulse {
-    0%, 80%, 100% { opacity: 0.2; transform: scale(0.8); }
-    40% { opacity: 1; transform: scale(1); }
-  }
-
-  .fetch-btn {
-    width: calc(100% - 40px);
-    margin: 0 20px 12px;
-    padding: 14px;
-    background: var(--accent);
-    color: #0a0a0f;
-    border: none;
-    border-radius: 12px;
-    font-family: 'Noto Sans TC', sans-serif;
-    font-size: 14px;
-    font-weight: 500;
-    cursor: pointer;
-    letter-spacing: 0.05em;
-    transition: opacity 0.2s, transform 0.1s;
-  }
-
-  .fetch-btn:active { transform: scale(0.98); opacity: 0.9; }
-  .fetch-btn:disabled { opacity: 0.4; cursor: not-allowed; }
-
-  .notif-btn {
-    width: calc(100% - 40px);
-    margin: 0 20px 24px;
-    padding: 14px;
-    background: transparent;
-    color: var(--text);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    font-family: 'Noto Sans TC', sans-serif;
-    font-size: 13px;
-    font-weight: 300;
-    cursor: pointer;
-    letter-spacing: 0.05em;
-    transition: border-color 0.2s;
-  }
-
-  .notif-btn:hover { border-color: var(--muted); }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; padding: 0 12px; margin-bottom: 12px; }
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 12px; cursor: pointer; transition: border-color 0.2s; }
+  .card.expanded { border-color: var(--accent2); grid-column: 1 / -1; }
+  .card:active { opacity: 0.85; }
+  .card-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px; }
+  .card-sym { font-family: 'DM Mono', monospace; font-size: 13px; font-weight: 500; color: var(--accent2); }
+  .card-name { font-size: 9px; color: var(--muted); margin-top: 1px; }
+  .card-price { text-align: right; }
+  .card-price-num { font-family: 'DM Mono', monospace; font-size: 17px; font-weight: 500; }
+  .card-price-chg { font-family: 'DM Mono', monospace; font-size: 10px; margin-top: 1px; }
+  .up { color: var(--up); } .down { color: var(--down); } .neutral { color: var(--muted); }
+  .card-news { border-top: 1px solid var(--border); padding-top: 8px; }
+  .card-news-item { font-size: 11px; color: var(--muted); line-height: 1.5; padding: 3px 0; border-bottom: 1px solid rgba(255,255,255,0.04); }
+  .card-news-item:last-child { border-bottom: none; }
+  .card-news-item a { color: var(--text); text-decoration: none; }
+  .card-news-item .news-time { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--muted); margin-top: 1px; }
+  .card-detail { display: none; margin-top: 12px; border-top: 1px solid var(--border); padding-top: 12px; }
+  .card.expanded .card-detail { display: block; }
+  .chart-box { border-radius: 10px; overflow: hidden; border: 1px solid var(--border); height: 240px; margin-bottom: 10px; }
+  .chart-box iframe { width: 100%; height: 100%; border: none; display: block; }
+  .detail-news { }
+  .detail-news-item { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px; margin-bottom: 6px; text-decoration: none; display: block; }
+  .detail-news-item:active { border-color: var(--muted); }
+  .detail-news-title { font-size: 12px; color: var(--text); line-height: 1.5; }
+  .detail-news-meta { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--muted); margin-top: 3px; }
+  .notif-btn { width: calc(100% - 24px); margin: 0 12px 10px; padding: 13px; background: transparent; color: var(--text); border: 1px solid var(--border); border-radius: 12px; font-family: 'Noto Sans TC', sans-serif; font-size: 13px; cursor: pointer; transition: border-color 0.2s; }
   .notif-btn.granted { border-color: var(--up); color: var(--up); }
-
-  .notice {
-    margin: 0 20px 16px;
-    padding: 12px 14px;
-    background: rgba(255,184,0,0.05);
-    border: 1px solid rgba(255,184,0,0.2);
-    border-radius: 10px;
-    font-size: 11px;
-    color: var(--warn);
-    line-height: 1.7;
-  }
-
-  .stock-line {
-    border-bottom: 1px solid var(--border);
-    padding: 10px 0;
-  }
-
-  .stock-line:last-child { border-bottom: none; }
-
-  .stock-sym-inline {
-    font-family: 'DM Mono', monospace;
-    font-size: 12px;
-    color: var(--accent2);
-    font-weight: 500;
-  }
+  .notice { margin: 0 12px; padding: 10px 12px; background: rgba(255,184,0,0.05); border: 1px solid rgba(255,184,0,0.2); border-radius: 10px; font-size: 10px; color: var(--warn); line-height: 1.7; }
+  .loading-dot { display: inline-block; animation: blink 1s infinite; }
+  @keyframes blink { 0%,100%{opacity:0.2} 50%{opacity:1} }
 </style>
 </head>
 <body>
@@ -323,84 +72,44 @@
 </header>
 
 <div class="hero">
-  <div class="hero-time" id="heroTime">--<span>:</span>--</div>
-  <div class="hero-sub" id="heroDate">載入中...</div>
+  <div>
+    <div class="hero-time" id="heroTime">--<span>:</span>--</div>
+    <div class="hero-sub" id="heroDate">載入中...</div>
+  </div>
 </div>
 
 <div class="alarm-strip">
-  <div class="alarm-chip" id="chip-morning" onclick="toggleAlarm('morning')">
+  <div class="alarm-chip active" id="chip-morning" onclick="toggleAlarm('morning')">
     <div class="alarm-chip-dot"></div>
     <div class="alarm-chip-label">早盤 06:00</div>
   </div>
-  <div class="alarm-chip" id="chip-evening" onclick="toggleAlarm('evening')">
+  <div class="alarm-chip active" id="chip-evening" onclick="toggleAlarm('evening')">
     <div class="alarm-chip-dot"></div>
     <div class="alarm-chip-label">盤前 18:00</div>
   </div>
 </div>
 
-<div class="section-label">監控持股</div>
-<div class="tickers">
-  <div class="ticker-card">
-    <div class="ticker-sym">NOW</div>
-    <div class="ticker-name">ServiceTitan</div>
-    <div class="ticker-price neutral" id="p-NOW">$--</div>
-    <div class="ticker-change neutral" id="c-NOW">--</div>
-  </div>
-  <div class="ticker-card">
-    <div class="ticker-sym">NVDA</div>
-    <div class="ticker-name">Nvidia</div>
-    <div class="ticker-price neutral" id="p-NVDA">$--</div>
-    <div class="ticker-change neutral" id="c-NVDA">--</div>
-  </div>
-  <div class="ticker-card">
-    <div class="ticker-sym">LITE</div>
-    <div class="ticker-name">Lumentum</div>
-    <div class="ticker-price neutral" id="p-LITE">$--</div>
-    <div class="ticker-change neutral" id="c-LITE">--</div>
-  </div>
-  <div class="ticker-card">
-    <div class="ticker-sym">ON</div>
-    <div class="ticker-name">onsemi</div>
-    <div class="ticker-price neutral" id="p-ON">$--</div>
-    <div class="ticker-change neutral" id="c-ON">--</div>
-  </div>
-  <div class="ticker-card">
-    <div class="ticker-sym">DS</div>
-    <div class="ticker-name">待確認</div>
-    <div class="ticker-price neutral" id="p-DS">$--</div>
-    <div class="ticker-change neutral" id="c-DS">--</div>
-  </div>
-  <div class="ticker-card">
-    <div class="ticker-sym">MRVL</div>
-    <div class="ticker-name">Marvell</div>
-    <div class="ticker-price neutral" id="p-MRVL">$--</div>
-    <div class="ticker-change neutral" id="c-MRVL">--</div>
-  </div>
-</div>
-
-<div class="section-label">AI 情報快報</div>
-<div class="report-box">
-  <div class="report-header">
-    <div class="report-title">最新盤前分析</div>
-    <div class="report-badge" id="reportBadge">待查詢</div>
-  </div>
-  <div class="report-content" id="reportContent">
-    點擊下方按鈕，AI 立即為你分析六檔最新情報。
-  </div>
-</div>
-
-<button class="fetch-btn" id="fetchBtn" onclick="fetchReport()">⚡ 立即查詢情報</button>
+<div class="grid" id="grid"></div>
 
 <button class="notif-btn" id="notifBtn" onclick="requestNotification()">🔔 開啟推播通知（每日 06:00 / 18:00）</button>
-
-<div class="notice">
-  ⚠️ 推播通知需要：①點擊開啟通知 ②允許瀏覽器權限 ③將此頁面加入手機主畫面（PWA）。Safari / iOS 需在「加入主畫面」後才支援通知。
-</div>
+<div class="notice">⚠️ iOS Safari：分享 → 加入主畫面後才能收推播。Android Chrome 直接允許即可。</div>
 
 <script>
-const TICKERS = ['NOW','NVDA','LITE','ON','DS','MRVL'];
+const API_KEY = "d8e124pr01qhm4ai0etgd8e124pr01qhm4ai0eu0";
+
+const STOCKS = [
+  { sym: 'TTAN', label: 'NOW',  name: 'ServiceTitan', exchange: 'NASDAQ' },
+  { sym: 'NVDA', label: 'NVDA', name: 'Nvidia',       exchange: 'NASDAQ' },
+  { sym: 'LITE', label: 'LITE', name: 'Lumentum',     exchange: 'NASDAQ' },
+  { sym: 'ONDS', label: 'ONDS', name: 'Ondas 無人機', exchange: 'NASDAQ' },
+  { sym: 'MRVL', label: 'MRVL', name: 'Marvell',      exchange: 'NASDAQ' },
+  { sym: 'GOOG', label: 'GOOG', name: 'Google C',     exchange: 'NASDAQ' },
+];
+
 let alarms = { morning: true, evening: true };
 let alarmChecked = { morning: false, evening: false };
+let expandedSym = null;
+let newsCache = {};
 
 // Clock
 function updateClock() {
@@ -414,117 +123,159 @@ function updateClock() {
   const d = now;
   document.getElementById('heroDate').textContent =
     `${d.getFullYear()}.${String(d.getMonth()+1).padStart(2,'0')}.${String(d.getDate()).padStart(2,'0')} 週${days[d.getDay()]}`;
-
-  // Check alarms
   const nowH = now.getHours(), nowM = now.getMinutes(), nowS = now.getSeconds();
   if (nowH === 6 && nowM === 0 && nowS < 10 && alarms.morning && !alarmChecked.morning) {
-    alarmChecked.morning = true;
-    triggerAlarm('早盤開盤');
+    alarmChecked.morning = true; triggerAlarm('早盤開盤');
   }
   if (nowH === 18 && nowM === 0 && nowS < 10 && alarms.evening && !alarmChecked.evening) {
-    alarmChecked.evening = true;
-    triggerAlarm('盤前情報');
+    alarmChecked.evening = true; triggerAlarm('盤前情報');
   }
   if (nowH !== 6) alarmChecked.morning = false;
   if (nowH !== 18) alarmChecked.evening = false;
 }
-
 setInterval(updateClock, 1000);
 updateClock();
 
 function toggleAlarm(which) {
   alarms[which] = !alarms[which];
-  const chip = document.getElementById(`chip-${which}`);
-  chip.classList.toggle('active', alarms[which]);
+  document.getElementById(`chip-${which}`).classList.toggle('active', alarms[which]);
 }
 
-// Init chips
-document.getElementById('chip-morning').classList.add('active');
-document.getElementById('chip-evening').classList.add('active');
+// Build grid
+function buildGrid() {
+  const grid = document.getElementById('grid');
+  grid.innerHTML = STOCKS.map(s => `
+    <div class="card" id="card-${s.sym}" onclick="toggleCard('${s.sym}','${s.exchange}')">
+      <div class="card-top">
+        <div>
+          <div class="card-sym">${s.label}</div>
+          <div class="card-name">${s.name}</div>
+        </div>
+        <div class="card-price">
+          <div class="card-price-num neutral" id="price-${s.sym}">$<span class="loading-dot">·</span></div>
+          <div class="card-price-chg neutral" id="chg-${s.sym}">--</div>
+        </div>
+      </div>
+      <div class="card-news" id="news-${s.sym}">
+        <div class="card-news-item" style="color:var(--muted)">載入中...</div>
+      </div>
+      <div class="card-detail" id="detail-${s.sym}">
+        <div class="chart-box">
+          <iframe id="chart-${s.sym}" src="" allowtransparency="true"></iframe>
+        </div>
+        <div class="detail-news" id="detail-news-${s.sym}"></div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function toggleCard(sym, exchange) {
+  const card = document.getElementById(`card-${sym}`);
+  if (expandedSym === sym) {
+    card.classList.remove('expanded');
+    expandedSym = null;
+  } else {
+    if (expandedSym) document.getElementById(`card-${expandedSym}`)?.classList.remove('expanded');
+    card.classList.add('expanded');
+    expandedSym = sym;
+    // Load chart
+    document.getElementById(`chart-${sym}`).src =
+      `https://www.tradingview.com/widgetembed/?frameElementId=chart-${sym}&symbol=${exchange}:${sym}&interval=D&hidesidetoolbar=1&theme=dark&style=1&timezone=Asia/Taipei&locale=zh_TW`;
+    // Load full news in detail
+    if (newsCache[sym]) renderDetailNews(sym, newsCache[sym]);
+  }
+}
+
+function renderDetailNews(sym, items) {
+  const box = document.getElementById(`detail-news-${sym}`);
+  if (!box) return;
+  box.innerHTML = items.slice(0, 8).map(item => {
+    const date = new Date(item.datetime * 1000);
+    const dateStr = `${date.getMonth()+1}/${date.getDate()} ${String(date.getHours()).padStart(2,'0')}:${String(date.getMinutes()).padStart(2,'0')}`;
+    return `<a class="detail-news-item" href="${item.url}" target="_blank">
+      <div class="detail-news-title">${item.headline}</div>
+      <div class="detail-news-meta">${dateStr} · ${item.source}</div>
+    </a>`;
+  }).join('');
+}
+
+async function fetchAll() {
+  await Promise.all(STOCKS.map(s => fetchStock(s.sym)));
+}
+
+async function fetchStock(sym) {
+  // Price
+  try {
+    const res = await fetch(`https://finnhub.io/api/v1/quote?symbol=${sym}&token=${API_KEY}`);
+    const d = await res.json();
+    if (d.c) {
+      const isUp = d.d >= 0;
+      const cls = isUp ? 'up' : 'down';
+      const sign = isUp ? '+' : '';
+      document.getElementById(`price-${sym}`).textContent = `$${d.c.toFixed(2)}`;
+      document.getElementById(`price-${sym}`).className = `card-price-num ${cls}`;
+      document.getElementById(`chg-${sym}`).textContent = `${sign}${d.d.toFixed(2)} (${sign}${d.dp.toFixed(2)}%)`;
+      document.getElementById(`chg-${sym}`).className = `card-price-chg ${cls}`;
+    }
+  } catch(e) {
+    document.getElementById(`price-${sym}`).textContent = '--';
+  }
+
+  // News
+  try {
+    const today = new Date();
+    const from = new Date(today - 7 * 24 * 60 * 60 * 1000);
+    const fmt = d => d.toISOString().split('T')[0];
+    const res = await fetch(
+      `https://finnhub.io/api/v1/company-news?symbol=${sym}&from=${fmt(from)}&to=${fmt(today)}&token=${API_KEY}`
+    );
+    const items = await res.json();
+    newsCache[sym] = items;
+
+    const newsBox = document.getElementById(`news-${sym}`);
+    if (items && items.length > 0) {
+      newsBox.innerHTML = items.slice(0, 2).map(item => {
+        const date = new Date(item.datetime * 1000);
+        const dateStr = `${date.getMonth()+1}/${date.getDate()}`;
+        return `<div class="card-news-item">
+          <a href="${item.url}" target="_blank">${item.headline}</a>
+          <div class="news-time">${dateStr} · ${item.source}</div>
+        </div>`;
+      }).join('');
+      if (expandedSym === sym) renderDetailNews(sym, items);
+    } else {
+      newsBox.innerHTML = '<div class="card-news-item">暫無新聞</div>';
+    }
+  } catch(e) {
+    document.getElementById(`news-${sym}`).innerHTML = '<div class="card-news-item">新聞載入失敗</div>';
+  }
+}
 
 async function triggerAlarm(label) {
   if (Notification.permission === 'granted') {
     new Notification(`📊 ${label}快報`, {
-      body: '正在為你查詢 NOW NVDA LITE ON DS MRVL 最新情報...',
+      body: 'NOW NVDA LITE ONDS MRVL GOOG 最新行情已更新',
       icon: 'icon-192.png'
     });
   }
-  await fetchReport();
-}
-
-async function fetchReport() {
-  const btn = document.getElementById('fetchBtn');
-  const content = document.getElementById('reportContent');
-  const badge = document.getElementById('reportBadge');
-
-  btn.disabled = true;
-  badge.textContent = '查詢中';
-  content.className = 'report-content loading';
-  content.innerHTML = `<div class="dot-pulse"><span></span><span></span><span></span></div> AI 分析中，請稍候...`;
-
-  const now = new Date();
-  const dateStr = `${now.getFullYear()}/${now.getMonth()+1}/${now.getDate()} ${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}`;
-  const session = now.getHours() < 12 ? '早盤開盤前' : now.getHours() < 18 ? '盤中' : '美股盤前';
-
-  const API_KEY = "d8e124pr01qhm4ai0etgd8e124pr01qhm4ai0eu0";
-
-  try {
-    const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${API_KEY}`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        contents: [{
-          parts: [{
-            text: `你是專業股票情報助理。用繁體中文回答。每檔股票只用兩句話報完。格式固定：【代號】$價格｜第一句重點新聞。第二句操作提示或展望。不要多餘說明，直接開始報盤。現在時間 ${dateStr}，${session}情報快報。請報 NOW(ServiceTitan) NVDA(Nvidia) LITE(Lumentum) ON(onsemi) MRVL(Marvell) 最新消息，每檔兩句話報完。`
-          }]
-        }],
-        generationConfig: { maxOutputTokens: 1000 }
-      })
-    });
-
-    const data = await res.json();
-    const text = data.candidates?.[0]?.content?.parts?.[0]?.text || '查詢失敗，請重試。';
-
-    content.className = 'report-content';
-    content.innerHTML = formatReport(text);
-    badge.textContent = dateStr.split(' ')[1] + ' 更新';
-  } catch (e) {
-    content.className = 'report-content';
-    content.innerHTML = `<span style="color:var(--down)">查詢失敗：${e.message}</span>`;
-    badge.textContent = '失敗';
-  }
-
-  btn.disabled = false;
-}
-
-function formatReport(text) {
-  return text
-    .split('\n')
-    .filter(l => l.trim())
-    .map(line => {
-      line = line.replace(/【(\w+)】/g, '<span class="stock-sym-inline">$1</span>');
-      return `<div class="stock-line">${line}</div>`;
-    })
-    .join('');
+  fetchAll();
 }
 
 async function requestNotification() {
   const btn = document.getElementById('notifBtn');
-  if (!('Notification' in window)) {
-    btn.textContent = '❌ 此瀏覽器不支援通知';
-    return;
-  }
+  if (!('Notification' in window)) { btn.textContent = '❌ 此瀏覽器不支援通知'; return; }
   const perm = await Notification.requestPermission();
   if (perm === 'granted') {
     btn.textContent = '✅ 推播通知已開啟';
     btn.className = 'notif-btn granted';
-    new Notification('✅ 盤前情報', {
-      body: '每日 06:00 早盤、18:00 盤前情報將自動通知你！',
-    });
+    new Notification('✅ 盤前情報', { body: '每日 06:00 / 18:00 自動通知！' });
   } else {
-    btn.textContent = '❌ 通知已被拒絕，請至設定手動開啟';
+    btn.textContent = '❌ 請至設定手動開啟通知';
   }
 }
+
+buildGrid();
+fetchAll();
 </script>
 </body>
 </html>
