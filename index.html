@@ -19,7 +19,6 @@
   }
   html, body { overflow-x: hidden; width: 100%; height: 100%; margin: 0; padding: 0; box-sizing: border-box; }
   * { box-sizing: inherit; }
-  /* ⚡ 恢復原本最舒服的中置完美比例，1920*1080 下絕不跑位毀掉 */
   body { background: var(--bg); color: var(--text); font-family: 'Noto Sans TC', sans-serif; font-weight: 300; min-height: 100vh; padding-bottom: 40px; max-width: 1200px; margin: 0 auto; position: relative; }
   header, .hero, .control-strip { padding: 16px 20px 0; display: flex; align-items: center; justify-content: space-between; width: 100%; }
   header { padding-top: 18px; }
@@ -64,9 +63,11 @@
   
   .discord-box { margin: 12px 16px; padding: 16px; background: rgba(88,101,242,0.03); border: 1px solid rgba(88,101,242,0.15); border-radius: 16px; display: flex; flex-direction: column; gap: 10px; }
   .discord-title { font-size: 12px; font-weight: 500; color: #5865F2; display: flex; align-items: center; gap: 6px; text-transform: uppercase; letter-spacing: 0.05em; }
-  /* ⚡ 鎖定手機版不跑位：強制縮減字句長度，並加上極致不換行設定 */
   .discord-text { font-size: 11px; color: var(--muted); line-height: 1.8; word-break: keep-all; white-space: normal; }
-  .discord-highlight { color: var(--accent); border: 1px solid var(--accent); border-radius: 100px; padding: 1px 6px; font-size: 10px; font-weight: 500; display: inline-block; background: rgba(200, 255, 0, 0.05); margin: 0 1px; line-height: 1.2; vertical-align: middle; white-space: nowrap; }
+  
+  /* ⚡ 強制將這段時間連同中間的「與」完全綁定，在小螢幕下也絕對待在同一行、不打斷 */
+  .time-group { white-space: nowrap; display: inline-block; }
+  .discord-highlight { color: var(--accent); border: 1px solid var(--accent); border-radius: 100px; padding: 1px 6px; font-size: 10px; font-weight: 500; display: inline-block; background: rgba(200, 255, 0, 0.05); margin: 0 1px; line-height: 1.2; vertical-align: middle; }
   
   .discord-btn-group { display: flex; flex-direction: column; gap: 8px; width: 100%; }
   .discord-btn { width: 100%; padding: 12px; background: var(--discord); color: #fff; border: none; border-radius: 12px; font-family: 'Noto Sans TC', sans-serif; font-size: 12px; font-weight: 500; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none; transition: all 0.2s; }
@@ -77,10 +78,9 @@
   .loading-dot { display: inline-block; animation: blink 1s infinite; }
   @keyframes blink { 0%,100%{opacity:0.2} 50%{opacity:1} }
 
-  /* ⚡ 恢復最完美的桌面 RWD 網格排列 */
   @media (min-width: 600px) {
     .hero-time { font-size: 48px; }
-    .grid { grid-template-columns: repeat(2, 1fr); gap: 14px; padding: 0 20px 20px; }
+    .grid { grid-template-columns: repeat(2, 1fr); gap: 12px; padding: 0 20px 20px; }
     .discord-box, .notice { margin: 0 20px 12px; }
     .discord-btn-group { flex-direction: row; }
     .discord-btn { flex: 1; }
@@ -117,7 +117,7 @@
 <div class="discord-box">
   <div class="discord-title"><span>🛡️</span> 24H 雲端自動推送已部署</div>
   <div class="discord-text">
-    無需開啟網頁，GitHub 雲端將於每日 <span class="discord-highlight">早上 06:00</span> 與 <span class="discord-highlight">晚上 18:00</span> 自動抓取行情並定時推送至 Discord。
+    無需開啟網頁，GitHub 雲端將於每日 <span class="time-group"><span class="discord-highlight">早上 06:00</span> 與 <span class="discord-highlight">晚上 18:00</span></span> 自動抓取行情並定時推送至 Discord。
   </div>
   <div class="discord-btn-group">
     <a class="discord-btn" href="https://discord.gg/vzVbybVvys" target="_blank">
@@ -187,7 +187,7 @@ function toggleCard(sym, ex) {
 
 function renderDetailNews(sym, items) {
   const box = document.getElementById('detail-news-' + sym);
-  // ⚡ 限制展開後僅留 3 個新聞
+  // ✨ 保留 3 條新聞
   if (box) box.innerHTML = items.slice(0, 3).map(item => {
     const d = new Date(item.datetime * 1000);
     return `<a class="detail-news-item" href="${item.url}" target="_blank" onclick="event.stopPropagation();">
@@ -217,7 +217,7 @@ async function fetchStock(sym) {
 
   try {
     const today = new Date(), from = new Date(today - 7 * 24 * 60 * 60 * 1000), fmt = d => d.toISOString().split('T')[0];
-    // ⚡ 修正了原本拼錯的 from 變數，恢復新聞抓取功能
+    // ✨ 精準修復：把錯誤的 {from} 改回正確的 ${fmt(from)}，新聞絕對抓得到！
     const res = await fetch(`https://finnhub.io/api/v1/company-news?symbol=${sym}&from=${fmt(from)}&to=${fmt(today)}&token=${API_KEY}`), items = await res.json();
     newsCache[sym] = items;
     const newsBox = document.getElementById(`news-${sym}`);
