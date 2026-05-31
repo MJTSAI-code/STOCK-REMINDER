@@ -37,8 +37,8 @@
   .refresh-btn:active, .discord-btn:active { transform: scale(0.95); }
   
   .grid { display: grid; grid-template-columns: 1fr; gap: 12px; padding: 0 16px 12px; width: 100%; }
-  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 16px; cursor: pointer; transition: border-color 0.2s; min-height: 105px; display: flex; flex-direction: column; justify-content: space-between; width: 100%; overflow: hidden; }
-  .card.expanded { border-color: var(--accent2); }
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 16px; cursor: pointer; transition: border-color 0.2s, grid-column 0.2s; min-height: 105px; display: flex; flex-direction: column; justify-content: space-between; width: 100%; overflow: hidden; }
+  .card.expanded { border-color: var(--accent2); grid-column: 1 / -1; }
   .card-top { display: flex; justify-content: space-between; align-items: flex-start; width: 100%; }
   .card-sym { font-family: 'DM Mono', monospace; font-size: 13px; font-weight: 500; color: var(--accent2); }
   .card-name { font-size: 9px; color: var(--muted); margin-top: 1px; }
@@ -46,9 +46,7 @@
   .card-price-num { font-family: 'DM Mono', monospace; font-size: 17px; font-weight: 500; }
   .card-price-chg { font-size: 10px; margin-top: 1px; }
   .up { color: var(--up); } .down { color: var(--down); } .neutral { color: var(--muted); }
-  .card-news { border-top: 1px solid var(--border); padding-top: 8px; margin-top: 8px; width: 100%; transition: all 0.2s; }
-  
-  /* 💡 核心優化：當卡片被展開 (.expanded) 時，將外層預覽的兩條新聞標題直接隱藏 */
+  .card-news { border-top: 1px solid var(--border); padding-top: 8px; margin-top: 8px; width: 100%; }
   .card.expanded .card-news { display: none; }
   
   .card-news-item { font-size: 11px; color: var(--muted); line-height: 1.5; padding: 3px 0; border-bottom: 1px solid rgba(255,255,255,0.04); text-overflow: ellipsis; overflow: hidden; white-space: nowrap; width: 100%; }
@@ -119,12 +117,10 @@
     無須保持網頁開啟，GitHub 雲端腳本將在每日 <span class="discord-highlight">早上 06:00</span> 與 <span class="discord-highlight">晚上 18:00</span> 自動抓取行情並推送至您的 Discord 頻道。
   </div>
   <div class="discord-btn-group">
-    <!-- 💡 提示：第一個填「聊天大廳連結」 -->
-    <a class="https://discord.gg/vzVbybVvys" target="_blank">
+    <a class="discord-btn" href="https://discord.gg/vzVbybVvys" target="_blank">
       📱 進入我的美股精選情報室
     </a>
-    <!-- 💡 提示：第二個填「唯讀播報頻道連結」 -->
-    <a class="https://discord.gg/vzVbybVvys" target="_blank">
+    <a class="discord-btn discord-btn-join" href="https://discord.gg/vzVbybVvys" target="_blank">
       ⚡ 訂閱我的美股推送播報
     </a>
   </div>
@@ -241,14 +237,3 @@ if ('serviceWorker' in navigator && (window.location.protocol === 'http:' || win
 </script>
 </body>
 </html>
-```
-eof
-
----
-
-### 🛠️ 這次更新做了哪些改善？
-
-1. **一擊必殺隱藏舊新聞**：
-   在 CSS 的第 **53 行** 加上了這一條高難度的前端優化規則：
-   ```css
-   .card.expanded .card-news { display: none; }
