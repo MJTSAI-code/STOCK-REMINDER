@@ -64,7 +64,7 @@
   .discord-box { margin: 12px 16px; padding: 16px; background: rgba(88,101,242,0.03); border: 1px solid rgba(88,101,242,0.15); border-radius: 16px; display: flex; flex-direction: column; gap: 10px; }
   .discord-title { font-size: 12px; font-weight: 500; color: #5865F2; display: flex; align-items: center; gap: 6px; text-transform: uppercase; letter-spacing: 0.05em; }
   
-  /* ⚡ 鋼絲級防跑位設定：長文案在窄螢幕自動微縮，並限制 06:00 與 18:00 區段絕對不換行 */
+  /* ⚡ 手機長文案強行同排鋼絲防線 */
   .discord-text { font-size: 11px; color: var(--muted); line-height: 1.8; word-break: keep-all; white-space: normal; }
   @media (max-width: 380px) { .discord-text { font-size: 10px; } }
   .time-group { white-space: nowrap; display: inline-block; vertical-align: middle; }
@@ -90,7 +90,7 @@
     .grid { grid-template-columns: repeat(3, 1fr); }
   }
 
-  /* ⚡ 1920*1080 滿版無滾輪環境鎖：完全保持原本中置美學比例，絕不產生上下左右任何滾輪 */
+  /* ⚡ 桌面 1920 滿版無滾輪環境安全鎖 */
   @media (min-width: 1200px) {
     html, body { height: 100vh; max-height: 100vh; overflow: hidden !important; }
     body { max-width: 1400px; display: flex; flex-direction: column; justify-content: space-between; padding-bottom: 15px; }
@@ -214,7 +214,7 @@ async function fetchAll() {
 
 async function fetchStock(sym) {
   try {
-    const res = await fetch(`https://finnhub.io/api/v1/quote?symbol=${sym}&token=\" + API_KEY), d = await res.json();
+    const res = await fetch(`https://finnhub.io/api/v1/quote?symbol=${sym}&token=${API_KEY}`), d = await res.json();
     if (d.c) {
       const cls = d.d >= 0 ? 'up' : 'down', sign = d.d >= 0 ? '+' : '';
       document.getElementById(`price-${sym}`).textContent = `$${d.c.toFixed(2)}`;
