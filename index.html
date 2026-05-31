@@ -71,7 +71,7 @@
   .card-news { border-top: 1px solid var(--border); padding-top: 8px; margin-top: 8px; width: 100%; }
   .card-news-item { font-size: 11px; color: var(--muted); line-height: 1.5; padding: 3px 0; border-bottom: 1px solid rgba(255,255,255,0.04); text-overflow: ellipsis; overflow: hidden; white-space: nowrap; width: 100%; }
   .card-news-item:last-child { border-bottom: none; }
-  .card-news-item a { color: var(--text); text-decoration: none; display: block; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; }
+  .card-news-item a { color: var(--text); text-decoration: none; display: block; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; width: 100%; }
   .card-news-item .news-time, .detail-news-meta { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--muted); margin-top: 1px; }
   .card-detail { display: none; margin-top: 12px; border-top: 1px solid var(--border); padding-top: 12px; width: 100%; }
   .card.expanded .card-detail { display: block; }
@@ -81,14 +81,21 @@
   .detail-news-title { font-size: 12px; color: var(--text); line-height: 1.5; }
   .detail-news-meta { margin-top: 3px; display: block; }
   
-  /* 防止 Discord 面板溢出 */
+  /* 防止 Discord 面板溢出與按鈕樣式 */
   .discord-box { margin: 12px 16px; padding: 16px; background: rgba(88,101,242,0.03); border: 1px solid rgba(88,101,242,0.15); border-radius: 16px; display: flex; flex-direction: column; gap: 10px; }
   .discord-title { font-size: 12px; font-weight: 500; color: #5865F2; display: flex; align-items: center; gap: 6px; text-transform: uppercase; letter-spacing: 0.05em; }
   .discord-text { font-size: 11px; color: var(--muted); line-height: 1.6; }
+  
+  /* 雙按鈕群組排版 */
+  .discord-btn-group { display: flex; flex-direction: column; gap: 8px; width: 100%; }
   .discord-btn { width: 100%; padding: 12px; background: var(--discord); color: #fff; border: none; border-radius: 12px; font-family: 'Noto Sans TC', sans-serif; font-size: 12px; font-weight: 500; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none; transition: all 0.2s; }
   
+  /* 訂閱按鈕的外框樣式 */
+  .discord-btn-join { background: transparent; border: 1.5px solid var(--discord); color: #fff; }
+  .discord-btn-join:active { background: rgba(88,101,242,0.15); }
+  
   /* 底部說明限制寬度 */
-  .notice { margin: 0 16px; padding: 10px 12px; background: rgba(0,212,255,0.05); border: 1px solid rgba(0,212,255,0.2); border-radius: 10px; font-size: 10px; color: var(--accent2); line-height: 1.7; }
+  .notice { margin: 0 16px; padding: 10px 12px; background: rgba(0, 212, 255, 0.05); border: 1px solid rgba(0, 212, 255, 0.2); border-radius: 10px; font-size: 10px; color: var(--accent2); line-height: 1.7; }
   .loading-dot { display: inline-block; animation: blink 1s infinite; }
   @keyframes blink { 0%,100%{opacity:0.2} 50%{opacity:1} }
 
@@ -97,6 +104,8 @@
     .hero-time { font-size: 48px; }
     .grid { grid-template-columns: repeat(2, 1fr); gap: 12px; padding: 0 20px 20px; }
     .discord-box, .notice { margin: 0 20px 12px; }
+    .discord-btn-group { flex-direction: row; }
+    .discord-btn { flex: 1; }
   }
   @media (min-width: 1024px) {
     .grid { grid-template-columns: repeat(3, 1fr); }
@@ -132,10 +141,15 @@
   <div class="discord-text">
     無須保持網頁開啟，GitHub 雲端腳本將在每日 <b>06:00</b> 與 <b>18:00</b> 自動抓取行情並推送至您的 Discord 頻道。
   </div>
-  <!-- 💡 提示：請將下方 href="https://discord.gg/" 替換為你的 Discord 專屬「永久邀請連結」 -->
-  <a class="discord-btn" https://discord.gg/DNSG7reuS" target="_blank">
-    💬 開啟我的 Discord 專屬通知頻道
-  </a>
+  <div class="discord-btn-group">
+    <!-- 💡 提示：請將下方兩個 href="https://discord.gg/" 都替換為你的 Discord 專屬永久邀請連結 -->
+    <a class="discord-btn" href="https://discord.gg/DNSG7reuS" target="_blank">
+      📱 進入我的美股精選情報室
+    </a>
+    <a class="discord-btn discord-btn-join"https://discord.gg/DNSG7reuS" target="_blank">
+      ⚡ 訂閱我的美股推送播報
+    </a>
+  </div>
 </div>
 
 <div class="notice">
