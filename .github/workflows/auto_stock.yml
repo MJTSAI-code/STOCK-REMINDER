@@ -1,0 +1,55 @@
+name: 每日美股盤前 Discord 播報
+
+on:
+  schedule:
+    # 💡 台灣時間早上 06:00 (格林威治時間前一天 22:00)
+    - cron: '0 22 * * *'
+    # 💡 台灣時間傍晚 18:00 (格林威治時間當天早上 10:00)
+    - cron: '0 10 * * *'
+  workflow_dispatch: # 保留網頁上手動點擊測試的按鈕
+
+jobs:
+  fetch_and_send:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 呼叫美股 API 並發送至 Discord
+        run: |
+          API_KEY="d8e124pr01qhm4ai0etgd8e124pr01qhm4ai0eu0"
+          STOCKS="NOW NVDA LITE ONDS MRVL GOOG"
+          
+          # 用於組裝 Discord 訊息框
+          FIELDS=""
+          
+          for sym in $STOCKS; do
+            # 抓取 Finnhub 數據
+            res=$(curl -s "https://finnhub.io/api/v1/quote?symbol=${sym}&token=${API_KEY}")
+            price=$(echo $res | jq '.c')
+            chg=$(echo $res | jq '.d')
+            pct=$(echo $res | jq '.dp')
+            
+            # 判定漲跌方向與正負號
+            sign=" "
+            if (( $(echo "$chg >= 0" | bc -l) )); then sign="+"; fi
+            
+            # 格式化成 Discord 的 Markdown 卡片
+            FIELDS+='{"name": "'"${sym}"'", "value": "價格: $'"$price"'\n漲跌: '"$sign$chg"' ('$sign$pct'%)\n", "inline": true},'
+          done
+          
+          # 清除最後面多出來的逗號
+          FIELDS=${FIELDS%,}
+          
+          # 包裝成美觀的 Discord JSON 格式
+          JSON_DATA='{
+            "username": "美股情報特派員",
+            "avatar_url": "https://mjtsai-code.github.io/STOCK-REMINDER/icon-192.png",
+            "embeds": [{
+              "title": "📊 盤前即時行情快報",
+              "description": "24小時雲端自動腳本監測，最新數據已送達。",
+              "color": 13172544, 
+              "fields": ['"${FIELDS}"'],
+              "footer": { "text": "請至桌面 APP 查看即時華爾街英文新聞！" }
+            }]
+          }'
+          
+          # 將情報發送至安全保險箱內的 Discord Webhook URL
+          curl -H "Content-Type: application/json" -X POST -d "$JSON_DATA" "${{ secrets.DISCORD_WEBHOOK }}"
