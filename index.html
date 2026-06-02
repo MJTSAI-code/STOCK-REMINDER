@@ -153,15 +153,14 @@ function updateClock() {
 setInterval(updateClock, 1000);
 updateClock();
 
-// 精準對接你的實體 JSON 欄位結構
+// 解析對接你的真實 JSON 結構中的新聞
 function parseJsonStockNews(stockObj) {
   if (!stockObj || !Array.isArray(stockObj.news)) return [];
   
   return stockObj.news.map(item => {
-    // 精準抓取 headline，若為空或不存在則給予基本替代字
     const title = item.headline ? String(item.headline).trim() : "即時市場公告";
     
-    // ⚡ 網址保護罩：如果 JSON 給的是 "#" 或空值，就變成 javascript:void(0); 絕對不跳轉、不連去 Yahoo！
+    // 網址防護：當值為 "#" 時，轉換為無效連結，防外連與洗掉畫面
     let url = item.url ? String(item.url).trim() : "#";
     if (url === "#" || url === "" || url.toLowerCase() === "null") {
       url = "javascript:void(0);";
@@ -169,7 +168,6 @@ function parseJsonStockNews(stockObj) {
     
     const source = item.source || "即時財經";
     
-    // 處理秒級時間戳記 (1780421088)
     let rawTime = item.datetime;
     let dateObj = new Date();
     if (rawTime) {
@@ -291,16 +289,12 @@ window.addEventListener('hashchange', function() {
 async function loadCloudData() {
   const statusEl = document.getElementById('update-status');
   try {
-    // 用文字方式讀取，自己來解開重複鍵值的無效 JSON
     const res = await fetch(`./stock_data.json?t=${Date.now()}`);
-    let rawText = await res.json(); 
+    // 修正：直接讀取為原生 JSON 結構物件，絕不重複進行字串解析
+    const json = await res.json(); 
+    globalDataCache = json?.data ?? {};
     
-    // 格式強固化處理
-    let cleanJson = typeof rawText === 'string' ? JSON.parse(rawText) : rawText;
-    globalDataCache = cleanJson?.data ?? {};
-    
-    // 計算盤前盤後標籤
-    const incomingUpdateTime = cleanJson?.updated_at || null;
+    const incomingUpdateTime = json?.updated_at || null;
     const dataTime = incomingUpdateTime ? new Date(incomingUpdateTime) : new Date();
     const nyTimeStr = dataTime.toLocaleTimeString('en-US', { timeZone: 'America/New_York', hour12: false });
     const [nyHour, nyMin] = nyTimeStr.split(':').map(Number);
@@ -314,7 +308,6 @@ async function loadCloudData() {
       const sData = globalDataCache[s.sym];
       if (!sData) return;
       
-      // 處理報價
       const d = sData.quote || sData.price;
       const priceEl = document.getElementById(`price-${s.sym}`);
       const chgEl = document.getElementById(`chg-${s.sym}`);
@@ -338,7 +331,6 @@ async function loadCloudData() {
         }
       }
       
-      // 渲染對接過的新聞欄位
       const newsBox = document.getElementById(`news-${s.sym}`);
       if (newsBox) {
         const cleanNews = parseJsonStockNews(sData);
