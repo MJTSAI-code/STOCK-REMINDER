@@ -2,67 +2,89 @@ name: 美股數據更新與情報推送
 
 on:
   schedule:
-    - cron: '30 21 * * *'  # 台灣 05:30 (紐約夏令 17:30)
-    - cron: '30 22 * * *'  # 台灣 06:30 (紐約冬令 17:30)
-    - cron: '30 9 * * *'   # 台灣 17:30 (紐約夏令 05:30)
-    - cron: '30 10 * * *'  # 台灣 18:30 (紐約冬令 05:30)
-  workflow_dispatch:       # 手動秒發
+    - cron: '30 21 * * *'  # 台灣時間 05:30 觸發 (UTC 21:30) -> 全年不變
+    - cron: '30 9 * * *'   # 台灣時間 17:30 觸發 (UTC 09:30) -> 全年不變
+  workflow_dispatch:       # 保留手動秒發按鈕
 
 permissions:
-  contents: write         # 賦予腳本寫入檔案並 push 回倉庫的權限
+  contents: write         # 賦予寫入檔案並 push 回倉庫的權限
 
 jobs:
   update-and-push:
     runs-on: ubuntu-latest
     steps:
       - name: 檢查程式碼
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
-      - name: 依紐約收盤時間進行時區校正
+      - name: 依台灣時間進行時區校正（完美對抗冬夏令與 GitHub 塞車延遲）
         id: check_time
         run: |
-          export TZ="America/New_York"
-          NY_HOUR=$(date +%H)
-          echo "目前紐約時間: ${NY_HOUR} 點"
+          export TZ="Asia/Taipei"
+          TW_HOUR=$(date +%H)
+          echo "目前 GitHub 伺服器實際啟動時的台灣時間: ${TW_HOUR} 點"
           
-          # 手動觸發時跳過時間檢查
-          if [ "${{ github.event_name }}" != "workflow_dispatch" ] && [ "$NY_HOUR" != "05" ] && [ "$NY_HOUR" != "17" ]; then
-            echo "非標準發射窗口（美東 05/17 點），安全攔截。"
-            echo "should_run=false" >> $GITHUB_ENV
-            exit 0
+          # 如果是手動觸發 (workflow_dispatch)，一律放行
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "手動強制發射，全面放行！"
+            echo "should_run=true" >> $GITHUB_ENV
+          else
+            # 容許早上窗口 (05~08 點) 或 晚上窗口 (17~20 點) 的延遲啟動
+            if [ "$TW_HOUR" = "05" ] || [ "$TW_HOUR" = "06" ] || [ "$TW_HOUR" = "07" ] || [ "$TW_HOUR" = "08" ] || \
+               [ "$TW_HOUR" = "17" ] || [ "$TW_HOUR" = "18" ] || [ "$TW_HOUR" = "19" ] || [ "$TW_HOUR" = "20" ]; then
+              echo "✅ 在標準發射時間窗口內，放行數據任務。"
+              echo "should_run=true" >> $GITHUB_ENV
+            else
+              echo "❌ 檢測到非正常的發射時間窗口，安全攔截。"
+              echo "should_run=false" >> $GITHUB_ENV
+            fi
           fi
-          echo "should_run=true" >> $GITHUB_ENV
 
-      - name: 閹割與抓取 Finnhub 美股數據並生成 JSON
+      - name: 設定 Node.js 環境
+        if: env.should_run == 'true'
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: 抓取 Finnhub 美股數據並生成 JSON
         if: env.should_run == 'true'
         run: |
           echo "開始向 Finnhub 請求數據..."
-          # 建立一個暫存的 JSON 結構
           echo '{"updated_at":"","stocks":{}}' > stock_data.json
           
-          # 透過 Linux 內建的 curl 密謀抓取 6 檔股票，利用 Bash 組裝成靜態 JSON
-          # （為了保持 YML 簡潔，這裡做一個標準的數據包生成）
           cat << 'EOF' > fetch_data.js
           const fs = require('fs');
           const stocks = ['NOW', 'NVDA', 'LITE', 'ONDS', 'MRVL', 'GOOG'];
           const apiKey = process.env.FINNHUB_KEY;
           
           async function run() {
+            // 統一格式化本地時間日期 (YYYY-MM-DD) 避免 UTC 時差導致 Finnhub 報錯
+            const formatDate = (date) => {
+              const offset = date.getTimezoneOffset();
+              const localDate = new Date(date.getTime() - (offset*60*1000));
+              return localDate.toISOString().split('T')[0];
+            };
+
             let result = { updated_at: new Date().toISOString(), data: {} };
             for(let sym of stocks) {
               try {
                 // 抓股價
                 const qRes = await fetch(`https://finnhub.io/api/v1/quote?symbol=${sym}&token=${apiKey}`);
                 const qData = await qRes.json();
-                // 抓新聞
+                
+                // 抓新聞 (校正後的在地日期)
                 const today = new Date();
-                const from = new Date(today - 7*24*60*60*1000).toISOString().split('T')[0];
-                const to = today.toISOString().split('T')[0];
+                const oneWeekAgo = new Date(today.getTime() - 7*24*60*60*1000);
+                const from = formatDate(oneWeekAgo);
+                const to = formatDate(today);
+                
                 const nRes = await fetch(`https://finnhub.io/api/v1/company-news?symbol=${sym}&from=${from}&to=${to}&token=${apiKey}`);
                 const nData = await nRes.json();
                 
-                result.data[sym] = { quote: qData, news: nData || [] };
-              } catch(e) { console.error(sym, e); }
+                result.data[sym] = { quote: qData, news: Array.isArray(nData) ? nData : [] };
+              } catch(e) { 
+                console.error(`抓取 ${sym} 失敗:`, e); 
+                result.data[sym] = { quote: {}, news: [] }; // 防禦性空值，避免整個寫入掛掉
+              }
             }
             fs.writeFileSync('stock_data.json', JSON.stringify(result, null, 2));
           }
@@ -79,8 +101,13 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add stock_data.json
-          # 檢查是否有圖表數據變動，有變動才 commit
-          git diff --quiet && git diff --staged --quiet || (git commit -m "🤖 自動更新美股數據庫 [skip ci]" && git push)
+          
+          if ! git diff --quiet || ! git diff --staged --quiet; then
+            git commit -m "🤖 自動更新美股數據庫 [skip ci]"
+            git push
+          else
+            echo "數據無變動，跳過 Commit"
+          fi
 
       - name: 發射 Telegram 推送
         if: env.should_run == 'true'
