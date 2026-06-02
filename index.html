@@ -32,7 +32,6 @@
   .status-label { font-size: 10px; color: var(--accent); }
   .refresh-btn { background: rgba(0,212,255,0.1); border: 1px solid var(--accent2); border-radius: 100px; padding: 6px 14px; font-size: 11px; color: var(--accent2); cursor: pointer; transition: all 0.2s; -webkit-tap-highlight-color: transparent; }
   
-  /* 智慧自適應網格：2張或3張卡片時，均會自動完美平分、完全撐滿螢幕 */
   .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 14px; padding: 0 12px 12px; width: 100%; }
   
   .card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 18px; cursor: pointer; transition: border-color 0.2s ease, transform 0.2s ease; min-height: 105px; display: flex; flex-direction: column; justify-content: space-between; -webkit-tap-highlight-color: transparent; width: 100%; overflow: hidden; }
@@ -161,37 +160,27 @@ function updateClock() {
   document.getElementById('heroTime').innerHTML = `${pad(now.getHours())}<span>:</span>${pad(now.getMinutes())}`;
   document.getElementById('heroDate').textContent = `${now.getFullYear()}.${pad(now.getMonth()+1)}.${pad(now.getDate())} 週${['日','一','二','三','四','五','六'][now.getDay()]}`;
   
-  // 每秒動態巡檢：根據當前真實紐約時間調整網頁更新生命週期
   manageUpdateLifecycleByNY();
 }
-setInterval(updateClock, 1000);
-updateClock();
 
-// 【終極防禦：精密相容 18 分鐘搶跑機制】完美看穿紐約時區，冬夏令全部免疫
 function getNYMarketStatus() {
   const now = new Date();
-  // 強制換算成紐約當地的 24 小時制時間與日期
-  const nyStr = now.toLocaleTimeString('en-US', { timeZone: 'America/New_York', hour12: false });
-  const nyDateStr = now.toLocaleDateString('en-US', { timeZone: 'America/New_York' });
-  
-  const [nyHour, nyMin, nySec] = nyStr.split(':').map(Number);
-  const totalNyMinutes = nyHour * 60 + nyMin;
-  const nyDay = new Date(nyDateStr).getDay(); // 紐約當地星期幾 (0=日, 6=六)
+  const nyHour = Number(now.toLocaleTimeString('en-US', { timeZone: 'America/New_York', hour: '2-digit', hour12: false }));
+  const nyMin = Number(now.toLocaleTimeString('en-US', { timeZone: 'America/New_York', minute: '2-digit' }));
+  const nyDayStr = now.toLocaleDateString('en-US', { timeZone: 'America/New_York', weekday: 'short' }); 
 
-  let isWeekend = (nyDay === 0 || nyDay === 6);
+  const totalNyMinutes = nyHour * 60 + nyMin;
+  let isWeekend = (nyDayStr === 'Sat' || nyDayStr === 'Sun');
   let isRegularMarketOpen = false;
   let phaseLabel = "";
 
-  // 紐約盤前：04:00 ~ 09:30 (240~570分鐘) -> 完美包容台灣 17:18 搶跑 (紐約約 04:18 或 05:18)
   if (totalNyMinutes >= 240 && totalNyMinutes < 570) {
     phaseLabel = "盤前";
   }
-  // 紐約正常盤中交易：09:30 ~ 16:00 (570~960分鐘)
   else if (totalNyMinutes >= 570 && totalNyMinutes < 960) {
     phaseLabel = ""; 
     if (!isWeekend) isRegularMarketOpen = true; 
   }
-  // 紐約盤後：16:00 ~ 20:00 (960~1200分鐘) -> 完美包容台灣 05:18 搶跑 (紐約約 16:18 或 17:18)
   else if (totalNyMinutes >= 960 && totalNyMinutes < 1200) {
     phaseLabel = "盤後";
   }
@@ -206,9 +195,11 @@ function manageUpdateLifecycleByNY() {
 
   if (isRegularMarketOpen) {
     if (dotEl) dotEl.className = "status-dot pulsing";
+    if (labelEl && (!liveIntervalId || labelEl.textContent.includes("休市") || labelEl.textContent.includes("失敗"))) {
+      labelEl.textContent = "美股盤中：即時更新中...";
+    }
     if (!liveIntervalId) {
-      if (labelEl) labelEl.textContent = "美股盤中：即時更新中...";
-      liveIntervalId = setInterval(loadCloudData, 60000); // 只有在美股真正開盤時，網頁才每分鐘連動
+      liveIntervalId = setInterval(loadCloudData, 60000); 
     }
   } else {
     if (dotEl) dotEl.className = "status-dot";
@@ -216,7 +207,7 @@ function manageUpdateLifecycleByNY() {
       clearInterval(liveIntervalId);
       liveIntervalId = null;
     }
-    if (labelEl && !isFirstLoad) {
+    if (labelEl && !isFirstLoad && !labelEl.textContent.includes("失敗")) {
       const lastT = new Date();
       labelEl.textContent = `休市定格模式 (${String(lastT.getHours()).padStart(2,'0')}:${String(lastT.getMinutes()).padStart(2,'0')}存檔)`;
     }
@@ -243,7 +234,7 @@ function parseJsonStockNews(stockObj, sym) {
   }).filter(item => {
     if (!item.title || item.title.length < 3) return false;
     const t = item.title;
-    return !t.includes("無新聞") && !t.includes("無標題") && !t.includes("沒有相關新聞") && !t.includes("null");
+    return !t.includes("無新聞") && !t.includes("無標題") && !t.includes("沒有相關新聞") && !t.includes("null") && !t.includes("無新聞標題");
   });
 
   return cleanItems.length > 0 ? cleanItems : (FALLBACK_NEWS[sym] || []);
@@ -335,7 +326,7 @@ function renderDetailNews(sym) {
   
   if (cleanItems.length > 0) {
     box.innerHTML = cleanItems.slice(0, 1).map(item => `
-      <a class="detail-news-item" href="${item.url}" ${item.url.startsWith('http') ? 'target="_blank" rel="noopener noreferrer"' : 'onclick="event.stopPropagation();"'}>
+      <a class="detail-news-item" href="${item.url}" ${item.url.startsWith('http') ? 'target="_blank" rel="noopener noreferrer"' : ''} onclick="event.stopPropagation();">
         <div class="detail-news-title">📰 ${item.title}</div>
         <span class="detail-news-meta">${item.datetime.getMonth()+1}/${item.datetime.getDate()} ${String(item.datetime.getHours()).padStart(2,'0')}:${String(item.datetime.getMinutes()).padStart(2,'0')} · ${item.source}</span>
       </a>
@@ -357,68 +348,83 @@ window.addEventListener('hashchange', function() {
 });
 
 async function loadCloudData() {
+  let hasError = false;
   try {
     const res = await fetch(`./stock_data.json?t=${Date.now()}`);
     const json = await res.json(); 
     globalDataCache = json?.data ?? {};
     
-    // 利用智慧時區模組，自動為卡片打上最正確的盤前或盤後標籤
     const { phaseLabel } = getNYMarketStatus();
 
     STOCKS.forEach(s => {
-      const sData = globalDataCache[s.sym];
-      if (!sData) return;
-      
-      const d = sData.quote || sData.price;
-      const priceEl = document.getElementById(`price-${s.sym}`);
-      const chgEl = document.getElementById(`chg-${s.sym}`);
-      const badgeEl = document.getElementById(`badge-${s.sym}`);
-      
-      if (d && priceEl && chgEl) {
-        const currentPrice = d.c || d.price || 0;
-        const change = d.d || d.change || 0;
-        const changePercent = d.dp || d.changePercent || 0;
-        const cls = change >= 0 ? 'up' : 'down';
-        const sign = change >= 0 ? '+' : '';
+      // 【單兵隔離艙的核心：每隻股票的渲染各自獨立，絕不連坐】
+      try {
+        const sData = globalDataCache[s.sym];
+        if (!sData) throw new Error(`Missing global data for ${s.sym}`);
         
-        priceEl.textContent = `$${currentPrice.toFixed(2)}`;
-        priceEl.className = `card-price-num ${cls}`;
-        chgEl.textContent = `${sign}${change.toFixed(2)} (${sign}${changePercent.toFixed(2)}%)`;
-        chgEl.className = `card-price-chg ${cls}`;
+        const d = sData.quote || sData.price;
+        if (!d) throw new Error(`Missing price quote data for ${s.sym}`);
         
-        if (badgeEl) {
-          badgeEl.textContent = phaseLabel;
-          badgeEl.style.display = phaseLabel ? "inline-block" : "none";
-        }
-      }
-      
-      // 唯有首次打開網頁或按手動重整時才抓取 1 則新聞，平時背景動態刷新股價時絕不亂閃新聞
-      if (isFirstLoad) {
-        const newsBox = document.getElementById(`news-${s.sym}`);
-        if (newsBox) {
-          const cleanNews = parseJsonStockNews(sData, s.sym);
-          if (cleanNews.length > 0) {
-            newsBox.innerHTML = cleanNews.slice(0, 1).map(item => `
-              <div class="card-news-item">
-                • ${item.title}
-                <div class="news-time">${item.datetime.getMonth()+1}/${item.datetime.getDate()} · ${item.source}</div>
-              </div>
-            `).join('');
+        const priceEl = document.getElementById(`price-${s.sym}`);
+        const chgEl = document.getElementById(`chg-${s.sym}`);
+        const badgeEl = document.getElementById(`badge-${s.sym}`);
+        
+        if (priceEl && chgEl) {
+          const currentPrice = d.c !== undefined ? d.c : (d.price || 0);
+          const change = d.d !== undefined ? d.d : (d.change || 0);
+          const changePercent = d.dp !== undefined ? d.dp : (d.changePercent || 0);
+          const cls = change >= 0 ? 'up' : 'down';
+          const sign = change >= 0 ? '+' : '';
+          
+          priceEl.textContent = `$${Number(currentPrice).toFixed(2)}`;
+          priceEl.className = `card-price-num ${cls}`;
+          chgEl.textContent = `${sign}${Number(change).toFixed(2)} (${sign}${Number(changePercent).toFixed(2)}%)`;
+          chgEl.className = `card-price-chg ${cls}`;
+          
+          if (badgeEl) {
+            badgeEl.textContent = phaseLabel;
+            badgeEl.style.display = phaseLabel ? "inline-block" : "none";
           }
         }
-      }
-      
-      if (expandedSym === s.sym && isFirstLoad) {
-        renderDetailNews(s.sym);
+        
+        if (isFirstLoad) {
+          const newsBox = document.getElementById(`news-${s.sym}`);
+          if (newsBox) {
+            const cleanNews = parseJsonStockNews(sData, s.sym);
+            if (cleanNews.length > 0) {
+              newsBox.innerHTML = cleanNews.slice(0, 1).map(item => `
+                <div class="card-news-item">
+                  • ${item.title}
+                  <div class="news-time">${item.datetime.getMonth()+1}/${item.datetime.getDate()} · ${item.source}</div>
+                </div>
+              `).join('');
+            }
+          }
+        }
+        
+        if (expandedSym === s.sym && isFirstLoad) {
+          renderDetailNews(s.sym);
+        }
+      } catch (innerError) {
+        console.error(`[單兵防禦降級] 股票 ${s.sym} 解析異常:`, innerError);
+        // 單兵死，只讓該卡片呈現 fallback，不干擾整個迴圈
+        const priceEl = document.getElementById(`price-${s.sym}`);
+        if (priceEl && priceEl.textContent === "$...") {
+          priceEl.textContent = "Data Error";
+        }
       }
     });
     
     isFirstLoad = false;
-    manageUpdateLifecycleByNY(); 
   } catch(e) {
-    console.error(e);
+    console.error("Cloud data fetch failed:", e);
+    hasError = true;
     const labelEl = document.getElementById('update-status');
     if (labelEl) labelEl.textContent = "同步失敗，請點擊按鈕重試";
+  } finally {
+    if (!hasError) {
+      manageUpdateLifecycleByNY(); 
+    }
   }
 }
 
@@ -428,7 +434,9 @@ function manualRefresh() {
 }
 
 buildGrid(); 
-loadCloudData(); 
+loadCloudData();
+setInterval(updateClock, 1000);
+updateClock();
 </script>
 </body>
 </html>
