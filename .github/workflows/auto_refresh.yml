@@ -1,0 +1,34 @@
+name: 24H 雲端股票數據自動同步
+
+on:
+  push:
+    branches: [ main ]  # 當你 push code 時觸發
+  schedule:
+    # 透過 Cron 排程：設定每 30 分鐘自動更新一次（可依需求調整）
+    - cron: '*/30 * * * *'
+
+jobs:
+  refresh-data:
+    runs-on: ubuntu-latest
+    steps:
+    - name: 複製專案代碼
+      uses: actions/checkout@v4
+
+    - name: 設定 Python 環境
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.10'
+
+    - name: 安裝極速依賴套件
+      run: |
+        pip install yfinance pytz
+
+    - name: 執行資料爬蟲
+      run: python update_stocks.py
+
+    - name: 將最新 stock_data.json 推送回 GitHub 倉庫
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add stock_data.json
+        git diff --quiet && git diff --staged --quiet || (git commit -m "🔄 雲端自動同步：更新即時股價與新聞" && git push)
