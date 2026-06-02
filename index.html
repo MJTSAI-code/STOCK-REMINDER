@@ -216,4 +216,185 @@ function buildGrid() {
 }
 
 function activateChart(boxEl, event) {
-  event.stopPropagation();
+  event.stopPropagation(); 
+  boxEl.classList.add('active');
+}
+
+document.addEventListener('click', function(e) {
+  if (!e.target.closest('.chart-box')) {
+    document.querySelectorAll('.chart-box.active').forEach(b => b.classList.remove('active'));
+  }
+});
+
+function toggleCard(sym, ex, event) {
+  if (event.target.closest('.card-detail')) return; 
+  
+  const card = document.getElementById(`card-${sym}`);
+  const grid = document.getElementById('grid');
+  if (!card) return;
+  const isExp = card.classList.contains('expanded');
+  
+  if (expandedSym && expandedSym !== sym) {
+    const prevCard = document.getElementById(`card-${expandedSym}`);
+    if (prevCard) {
+      prevCard.classList.remove('expanded');
+      const prevIframe = document.getElementById(`chart-${expandedSym}`);
+      if (prevIframe) prevIframe.src = '';
+    }
+  }
+
+  if (!isExp) {
+    window.location.hash = "expanded-" + sym;
+    grid.classList.add('has-expanded'); 
+    card.classList.add('expanded');
+    expandedSym = sym;
+
+    const iframe = document.getElementById(`chart-${sym}`);
+    if (iframe) {
+      iframe.src = `https://www.tradingview.com/widgetembed/?symbol=${ex}:${sym}&interval=D&hidesidetoolbar=1&theme=dark&style=1&timezone=Asia/Taipei&locale=zh_TW`;
+    }
+    
+    const box = document.getElementById('detail-news-' + sym);
+    if (box) {
+      const rawItems = globalDataCache?.[sym]?.news;
+      const cleanItems = getCleanValidNews(rawItems);
+      const now = new Date();
+      
+      if (cleanItems.length > 0) {
+        // 🎯 鎖死只切出 1 則雲端新聞，並優先讀取 Python 產出的 url
+        box.innerHTML = cleanItems.slice(0, 1).map(item => {
+          const tSec = item.datetime || item.providerPublishTime || (Date.now() / 1000);
+          const d = new Date(tSec * 1000);
+          const realUrl = item.url || item.link || "https://tw.stock.yahoo.com/us";
+          return `<a class="detail-news-item" href="${realUrl}" target="_blank" rel="noopener noreferrer">
+            <div class="detail-news-title">📰 ${item.headline || item.title}</div>
+            <span class="detail-news-meta">${d.getMonth()+1}/${d.getDate()} ${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')} · ${item.source || '即時財經'}</span>
+          </a>`;
+        }).join('');
+      } else {
+        // 🎯 鎖死只切出 1 則備用新聞，修正時間戳記
+        box.innerHTML = (FALLBACK_NEWS[sym] || FALLBACK_NEWS['NVDA']).slice(0, 1).map(f => `
+          <a class="detail-news-item" href="${f.url}" target="_blank" rel="noopener noreferrer">
+            <div class="detail-news-title">📰 [精選觀察] ${f.title}</div>
+            <span class="detail-news-meta">${now.getMonth()+1}/${now.getDate()} · ${f.src}</span>
+          </a>
+        `).join('');
+      }
+    }
+    
+    setTimeout(() => { card.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 120);
+
+  } else {
+    card.classList.remove('expanded');
+    grid.classList.remove('has-expanded');
+    expandedSym = null;
+    
+    const iframe = document.getElementById(`chart-${sym}`);
+    if (iframe) iframe.src = '';
+    
+    if (window.location.hash.includes("expanded")) {
+      history.replaceState("", document.title, window.location.pathname + window.location.search);
+    }
+    setTimeout(() => { card.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); }, 50);
+  }
+}
+
+window.addEventListener('hashchange', function() {
+  if (!window.location.hash && expandedSym) {
+    const card = document.getElementById(`card-${expandedSym}`);
+    const grid = document.getElementById('grid');
+    if (card) card.classList.remove('expanded');
+    if (grid) grid.classList.remove('has-expanded');
+    const iframe = document.getElementById(`chart-${expandedSym}`);
+    if (iframe) iframe.src = '';
+    setTimeout(() => { if (card) card.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); }, 50);
+    expandedSym = null;
+  }
+});
+
+async function loadCloudData() {
+  const statusEl = document.getElementById('update-status');
+  try {
+    const res = await fetch(`./stock_data.json?t=${Date.now()}`);
+    const json = await res.json();
+    globalDataCache = json?.data ?? {};
+    
+    const nowLocal = new Date();
+    const localHour = nowLocal.getHours();
+    let phaseLabel = ""; 
+    if (localHour >= 16 && localHour < 22) phaseLabel = "盤前";
+    else if (localHour >= 4 && localHour < 9) phaseLabel = "盤後";
+
+    STOCKS.forEach(s => {
+      const sData = globalDataCache[s.sym];
+      if (!sData) return;
+      
+      const d = sData.quote;
+      const priceEl = document.getElementById(`price-${s.sym}`);
+      const chgEl = document.getElementById(`chg-${s.sym}`);
+      const badgeEl = document.getElementById(`badge-${s.sym}`);
+      
+      if (d && d.c !== undefined && priceEl && chgEl) {
+        const currentPrice = Number(d.c) || 0;
+        const dollarChange = Number(d.d) || 0;
+        const percentChange = Number(d.dp) || 0;
+
+        const cls = dollarChange >= 0 ? 'up' : 'down';
+        const sign = dollarChange >= 0 ? '+' : '';
+        
+        priceEl.textContent = `$${currentPrice.toFixed(2)}`;
+        priceEl.className = `card-price-num ${cls}`;
+        chgEl.textContent = `${sign}${dollarChange.toFixed(2)} (${sign}${percentChange.toFixed(2)}%)`;
+        chgEl.className = `card-price-chg ${cls}`;
+        
+        if (badgeEl) {
+          badgeEl.textContent = phaseLabel;
+          badgeEl.style.display = phaseLabel ? "inline-block" : "none";
+        }
+      }
+      
+      const newsBox = document.getElementById(`news-${s.sym}`);
+      if (newsBox) {
+        const rawNews = sData.news ?? [];
+        const cleanNews = getCleanValidNews(rawNews);
+        const now = new Date();
+        
+        if (cleanNews.length > 0) {
+          // 🎯 鎖死只切出 1 則雲端新聞
+          newsBox.innerHTML = cleanNews.slice(0, 1).map(item => {
+            const tSec = item.datetime || item.providerPublishTime || (Date.now() / 1000);
+            const dObj = new Date(tSec * 1000);
+            return `
+              <div class="card-news-item">
+                • ${item.headline || item.title}
+                <div class="news-time">${dObj.getMonth()+1}/${dObj.getDate()} · ${item.source || '即時財經'}</div>
+              </div>
+            `;
+          }).join('');
+        } else {
+          // 🎯 鎖死只切出 1 則備用新聞，修正閉包變數確保時間正常
+          const targetFallback = FALLBACK_NEWS[s.sym] || FALLBACK_NEWS['NVDA'];
+          newsBox.innerHTML = targetFallback.slice(0, 1).map(f => `
+            <div class="card-news-item">• ${f.title}<div class="news-time">${now.getMonth()+1}/${now.getDate()} · ${f.src}</div></div>
+          `).join('');
+        }
+      }
+    });
+    
+    if (statusEl) {
+      const nowTime = new Date();
+      statusEl.textContent = `雲端同步完畢 (${String(nowTime.getHours()).padStart(2, '0')}:${String(nowTime.getMinutes()).padStart(2, '0')}更新)`;
+    }
+  } catch(e) {
+    console.error(e);
+    if (statusEl) statusEl.textContent = "同步失敗，請手動刷新";
+  }
+}
+
+function manualRefresh() { loadCloudData(); }
+buildGrid(); 
+loadCloudData();
+setInterval(loadCloudData, 60000); 
+</script>
+</body>
+</html>
