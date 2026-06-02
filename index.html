@@ -31,14 +31,14 @@
   .status-label { font-size: 10px; color: var(--accent); }
   .refresh-btn { background: rgba(0,212,255,0.1); border: 1px solid var(--accent2); border-radius: 100px; padding: 6px 14px; font-size: 11px; color: var(--accent2); cursor: pointer; transition: all 0.2s; -webkit-tap-highlight-color: transparent; }
   
-  /* ⚡ 完美的 Flexbox 容器：平時靠左排列，有人展開時自動置中下方落單卡片 */
+  /* ⚡ Flexbox 佈局：平時靠左，有人展開時靠中對齊（能讓最後排剩 2 張的卡片自然水平居中） */
   .grid { display: flex; flex-wrap: wrap; justify-content: flex-start; gap: 14px; padding: 0 12px 12px; width: 100%; transition: all 0.3s ease; }
   .grid.has-expanded { justify-content: center; }
   
-  /* ⚡ 卡片基礎設定（手機版滿版） */
+  /* 卡片標準設定（手機版滿版） */
   .card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 18px; cursor: pointer; transition: border-color 0.2s ease, width 0.3s cubic-bezier(0.25, 1, 0.5, 1), max-width 0.3s cubic-bezier(0.25, 1, 0.5, 1); min-height: 105px; display: flex; flex-direction: column; justify-content: space-between; -webkit-tap-highlight-color: transparent; width: 100%; overflow: hidden; order: 0; flex-grow: 0; flex-shrink: 0; }
   
-  /* ⚡ 終極展開邏輯：order: -1 強制置頂第一行，width: 100% 把其他卡片通通擠到正下方！ */
+  /* ⚡ 展開卡片獨佔第一行，將其他卡片全數擠到下方 */
   .card.expanded { border-color: var(--accent2); cursor: default; width: 100% !important; max-width: 100% !important; order: -1; }
   
   .card-top { display: flex; justify-content: space-between; align-items: center; width: 100%; }
@@ -64,7 +64,7 @@
   .chart-box { border-radius: 10px; overflow: hidden; border: 1px solid var(--border); height: 260px; margin-bottom: 16px; background: var(--bg); width: 100%; max-width: 100%; display: block; position: relative; }
   .chart-box iframe { width: 100%; height: 100%; border: none; display: block; pointer-events: auto; }
   
-  /* 新聞外連樣式 */
+  /* 📰 真實新聞超連結點擊外連條目 */
   .detail-news-item { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 14px; margin-bottom: 10px; text-decoration: none; display: block; -webkit-tap-highlight-color: transparent; width: 100%; transition: border-color 0.2s; }
   .detail-news-title { font-size: 13px; color: var(--text); line-height: 1.5; text-decoration: none !important; }
   .detail-news-item:active, .detail-news-item:hover { border-color: var(--accent2); background: rgba(0, 212, 255, 0.04); }
@@ -80,12 +80,11 @@
   .notice { margin: 0 12px; padding: 10px 12px; background: rgba(0, 212, 255, 0.05); border: 1px solid rgba(0, 212, 255, 0.2); border-radius: 10px; font-size: 10px; color: var(--accent2); line-height: 1.7; }
   @keyframes blink { 0%,100%{opacity:0.2} 50%{opacity:1} }
 
-  /* ⚡ 電腦與平板響應式比例精確計算 */
+  /* ⚡ 響應式佈局：維持 3 欄排列，下移的剩餘字卡也維持 3 欄 */
   @media (min-width: 600px) {
     header, .hero, .control-strip { padding: 16px 20px 0; }
     .hero-time { font-size: 48px; }
     .grid { padding: 0 20px 20px; gap: 14px; }
-    /* 雙欄 */
     .card { width: calc(50% - 7px); max-width: calc(50% - 7px); }
     .discord-box, .notice { margin: 0 20px 12px; }
     .discord-btn-group { flex-direction: row; }
@@ -95,11 +94,9 @@
   
   @media (min-width: 1024px) { 
     .grid { gap: 16px; } 
-    /* 三欄精確計算：(100% - 總 gap 寬度) / 3 */
+    /* 電腦版：標準三欄精確計算：(100% - 總 gap 寬度) / 3 */
+    /* ⚡ 不管有沒有人展開，所有普通字卡永遠維持標準 3 欄寬度！絕不亂變 2 欄 */
     .card { width: calc((100% - 32px) / 3); max-width: calc((100% - 32px) / 3); }
-    
-    /* 當有人展開時，下方的其餘 5 張卡片自動轉成雙欄平分排列，如此一來最後一排落單的 2 張就會被 justify-content: center 完美水平置中！ */
-    .grid.has-expanded .card:not(.expanded) { width: calc((100% - 16px) / 2); max-width: calc((100% - 16px) / 2); }
     .chart-box { height: 460px; } 
   }
   
@@ -107,7 +104,6 @@
     body { max-width: 1400px; }
     .grid { gap: 18px; }
     .card { width: calc((100% - 36px) / 3); max-width: calc((100% - 36px) / 3); }
-    .grid.has-expanded .card:not(.expanded) { width: calc((100% - 18px) / 2); max-width: calc((100% - 18px) / 2); }
   }
 </style>
 </head>
@@ -163,7 +159,7 @@ const STOCKS = [
 const FALLBACK_NEWS = {
   NOW: [
     { title: "ServiceNow 雲端工作流拓展：機構上調目標價與大型企業續約率觀察", src: "財經編譯", url: "https://tw.stock.yahoo.com/us" },
-    { title: "AI 自動化平台需求強勁，NOW 獲矽谷科技板塊核心長線資金增持", src: "機構調研", url: "https://tw.stock.yahoo.com/us" },
+    { title: "AI 自動化平台需求強勁，NOW 獲矽谷科技板塊核心長線資金增持", src: "機構調延", url: "https://tw.stock.yahoo.com/us" },
     { title: "企業數位轉型支出未減，分析師看好雲端 SaaS 軟體服務續航動能", src: "美股焦點", url: "https://tw.stock.yahoo.com/us" }
   ],
   NVDA: [
@@ -206,13 +202,12 @@ function updateClock() {
 setInterval(updateClock, 1000);
 updateClock();
 
-function isNewsValid(newsArray) {
-  if (!newsArray || !Array.isArray(newsArray) || newsArray.length === 0) return false;
-  const validItems = newsArray.filter(i => {
+function getCleanValidNews(newsArray) {
+  if (!newsArray || !Array.isArray(newsArray) || newsArray.length === 0) return [];
+  return newsArray.filter(i => {
     const txt = i.headline || i.title || "";
     return txt && txt.trim() !== "" && !txt.includes("無新聞標題") && !txt.includes("無最新新聞");
   });
-  return validItems.length > 0;
 }
 
 function buildGrid() {
@@ -256,7 +251,7 @@ function toggleCard(sym, ex, event) {
 
   if (!isExp) {
     window.location.hash = "expanded-" + sym;
-    grid.classList.add('has-expanded'); // 啟用下方其餘卡片雙欄置中引擎
+    grid.classList.add('has-expanded'); 
     card.classList.add('expanded');
     expandedSym = sym;
 
@@ -265,14 +260,14 @@ function toggleCard(sym, ex, event) {
       iframe.src = `https://www.tradingview.com/widgetembed/?symbol=${ex}:${sym}&interval=D&hidesidetoolbar=1&theme=dark&style=1&timezone=Asia/Taipei&locale=zh_TW`;
     }
     
+    // ⚡ 徹底修復新聞超連結：精確篩選變數，確保真連結完全綁定
     const box = document.getElementById('detail-news-' + sym);
     if (box) {
-      const items = globalDataCache?.[sym]?.news;
-      if (isNewsValid(items)) {
-        box.innerHTML = items.filter(i => {
-          const t = i.headline || i.title || "";
-          return t && !t.includes("無新聞標題") && !t.includes("無最新新聞") && t.trim() !== "";
-        }).slice(0, 3).map(item => {
+      const rawItems = globalDataCache?.[sym]?.news;
+      const cleanItems = getCleanValidNews(rawItems);
+      
+      if (cleanItems.length > 0) {
+        box.innerHTML = cleanItems.slice(0, 3).map(item => {
           const d = new Date((item.datetime ?? Date.now() / 1000) * 1000);
           const realUrl = item.url || item.link || item.source_url || "https://tw.stock.yahoo.com/us";
           return `<a class="detail-news-item" href="${realUrl}" target="_blank" rel="noopener noreferrer">
@@ -290,7 +285,6 @@ function toggleCard(sym, ex, event) {
       }
     }
     
-    // ⚡ 完美錨定：以點開的字卡頂端為中心流暢平滑對齊，絕對不跳動
     setTimeout(() => {
       card.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }, 120);
@@ -306,14 +300,12 @@ function toggleCard(sym, ex, event) {
       history.replaceState("", document.title, window.location.pathname + window.location.search);
     }
     
-    // ⚡ 完美收合：回滾時牢牢鎖定該字卡中心位置，周圍卡片平滑歸位，決不晃動失焦
     setTimeout(() => {
       card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }, 50);
   }
 }
 
-// 監聽原生上一頁
 window.addEventListener('hashchange', function() {
   if (!window.location.hash && expandedSym) {
     const card = document.getElementById(`card-${expandedSym}`);
@@ -371,11 +363,10 @@ async function loadCloudData() {
       const newsBox = document.getElementById(`news-${s.sym}`);
       if (newsBox) {
         const rawNews = sData.news ?? [];
-        if (isNewsValid(rawNews)) {
-          newsBox.innerHTML = rawNews.filter(i => {
-            const heading = i.headline || i.title || "";
-            return heading && !heading.includes("無新聞標題") && !heading.includes("無最新新聞") && heading.trim() !== "";
-          }).slice(0, 3).map(item => `
+        const cleanNews = getCleanValidNews(rawNews);
+        
+        if (cleanNews.length > 0) {
+          newsBox.innerHTML = cleanNews.slice(0, 3).map(item => `
             <div class="card-news-item">
               • ${item.headline || item.title}
               <div class="news-time">${new Date((item.datetime ?? Date.now()/1000)*1000).getMonth()+1}/${new Date((item.datetime ?? Date.now()/1000)*1000).getDate()} · ${item.source || '即時財經'}</div>
