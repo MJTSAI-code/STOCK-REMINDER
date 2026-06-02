@@ -1,29 +1,29 @@
 {
   "name": "美股盤前情報資料庫",
-  "updated_at": "2026-06-02T17:12:02.101879+00:00",
+  "updated_at": "2026-06-02T17:14:45.541588+00:00",
   "data": {
     "NOW": {
       "quote": {
-        "c": 126.37000274658203,
-        "d": -5.619997253417978,
-        "dp": -4.257896244729129
+        "c": 126.3949966430664,
+        "d": -5.595003356933603,
+        "dp": -4.238960040104253
       },
       "news": [
         {
           "headline": "無新聞標題",
-          "datetime": 1780420320,
+          "datetime": 1780420483,
           "source": "Yahoo Finance",
           "url": "#"
         },
         {
           "headline": "無新聞標題",
-          "datetime": 1780420320,
+          "datetime": 1780420483,
           "source": "Yahoo Finance",
           "url": "#"
         },
         {
           "headline": "無新聞標題",
-          "datetime": 1780420320,
+          "datetime": 1780420483,
           "source": "Yahoo Finance",
           "url": "#"
         }
@@ -31,26 +31,26 @@
     },
     "NVDA": {
       "quote": {
-        "c": 225.32000732421875,
-        "d": 1.4000073242187625,
-        "dp": 0.6252265649422841
+        "c": 225.51890563964844,
+        "d": 1.59890563964845,
+        "dp": 0.7140521791927698
       },
       "news": [
         {
           "headline": "無新聞標題",
-          "datetime": 1780420320,
+          "datetime": 1780420484,
           "source": "Yahoo Finance",
           "url": "#"
         },
         {
           "headline": "無新聞標題",
-          "datetime": 1780420320,
+          "datetime": 1780420484,
           "source": "Yahoo Finance",
           "url": "#"
         },
         {
           "headline": "無新聞標題",
-          "datetime": 1780420320,
+          "datetime": 1780420484,
           "source": "Yahoo Finance",
           "url": "#"
         }
@@ -58,26 +58,26 @@
     },
     "LITE": {
       "quote": {
-        "c": 1034.31005859375,
-        "d": 120.01005859375005,
-        "dp": 13.125895066580998
+        "c": 1027.9300537109375,
+        "d": 113.63005371093755,
+        "dp": 12.428092935681674
       },
       "news": [
         {
           "headline": "無新聞標題",
-          "datetime": 1780420320,
+          "datetime": 1780420484,
           "source": "Yahoo Finance",
           "url": "#"
         },
         {
           "headline": "無新聞標題",
-          "datetime": 1780420320,
+          "datetime": 1780420484,
           "source": "Yahoo Finance",
           "url": "#"
         },
         {
           "headline": "無新聞標題",
-          "datetime": 1780420320,
+          "datetime": 1780420484,
           "source": "Yahoo Finance",
           "url": "#"
         }
@@ -85,26 +85,26 @@
     },
     "ONDS": {
       "quote": {
-        "c": 13.625,
-        "d": 0.2142999999999997,
-        "dp": 1.597977734197318
+        "c": 13.585000038146973,
+        "d": 0.17430003814697237,
+        "dp": 1.2997087262184104
       },
       "news": [
         {
           "headline": "無新聞標題",
-          "datetime": 1780420321,
+          "datetime": 1780420484,
           "source": "Yahoo Finance",
           "url": "#"
         },
         {
           "headline": "無新聞標題",
-          "datetime": 1780420321,
+          "datetime": 1780420484,
           "source": "Yahoo Finance",
           "url": "#"
         },
         {
           "headline": "無新聞標題",
-          "datetime": 1780420321,
+          "datetime": 1780420484,
           "source": "Yahoo Finance",
           "url": "#"
         }
@@ -112,26 +112,26 @@
     },
     "MRVL": {
       "quote": {
-        "c": 285.2650146484375,
-        "d": 65.7720146484375,
-        "dp": 29.965426983292183
+        "c": 284.760009765625,
+        "d": 65.267009765625,
+        "dp": 29.735349084310208
       },
       "news": [
         {
           "headline": "無新聞標題",
-          "datetime": 1780420321,
+          "datetime": 1780420485,
           "source": "Yahoo Finance",
           "url": "#"
         },
         {
           "headline": "無新聞標題",
-          "datetime": 1780420321,
+          "datetime": 1780420485,
           "source": "Yahoo Finance",
           "url": "#"
         },
         {
           "headline": "無新聞標題",
-          "datetime": 1780420321,
+          "datetime": 1780420485,
           "source": "Yahoo Finance",
           "url": "#"
         }
@@ -139,26 +139,26 @@
     },
     "GOOG": {
       "quote": {
-        "c": 364.181396484375,
-        "d": -5.818603515625,
-        "dp": -1.5725955447635134
+        "c": 364.19000244140625,
+        "d": -5.80999755859375,
+        "dp": -1.5702696104307432
       },
       "news": [
         {
           "headline": "無新聞標題",
-          "datetime": 1780420322,
+          "datetime": 1780420485,
           "source": "Yahoo Finance",
           "url": "#"
         },
         {
           "headline": "無新聞標題",
-          "datetime": 1780420322,
+          "datetime": 1780420485,
           "source": "Yahoo Finance",
           "url": "#"
         },
         {
           "headline": "無新聞標題",
-          "datetime": 1780420322,
+          "datetime": 1780420485,
           "source": "Yahoo Finance",
           "url": "#"
         }
