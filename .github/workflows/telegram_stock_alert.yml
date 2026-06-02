@@ -2,12 +2,11 @@ name: 美股精選情報室
 
 on:
   schedule:
-    # 📝 定時排線（覆蓋早晚的夏令與冬令時間）
-    - cron: '0 21 * * *'  # 👈 台灣時間 05:00（冬令早上發射 / 夏令早上攔截）
-    - cron: '0 22 * * *'  # 👈 台灣時間 06:00（夏令早上發射）
-    - cron: '0 9 * * *'   # 👈 台灣時間 17:00（冬令晚上發射 / 夏令晚上攔截）
-    - cron: '0 10 * * *'  # 👈 台灣時間 18:00（夏令晚上發射）
-  workflow_dispatch:      # 👈 手動觸發，任何時間點按都會秒發射！
+    - cron: '30 21 * * *'  # 台灣 05:30 (紐約夏令 17:30 / 冬令 16:30)
+    - cron: '30 22 * * *'  # 台灣 06:30 (紐約夏令 18:30 / 冬令 17:30)
+    - cron: '30 9 * * *'   # 台灣 17:30 (紐約夏令 05:30 / 冬令 04:30)
+    - cron: '30 10 * * *'  # 台灣 18:30 (紐約夏令 06:30 / 冬令 05:30)
+  workflow_dispatch:       # 手動秒發
 
 permissions: write-all
 
@@ -15,21 +14,22 @@ jobs:
   send-push:
     runs-on: ubuntu-latest
     steps:
-      - name: 檢查並精準發送台灣絕對時間
+      - name: 依紐約收盤時間進行數學邏輯校正
         run: |
-          export TZ="Asia/Taipei"
-          CURRENT_HOUR=$(date +%H)
-          CURRENT_MONTH=$(date +%m)
-          echo "當前台北時間的整點為: ${CURRENT_HOUR} 點，月份為: ${CURRENT_MONTH} 月"
-          
-          # ⚠️ 夏令時間攔截防線：
-          # 2026 年 6 月是夏令時間，當系統在 05 點或 17 點自動喚醒時，會直接攔截不發射（留給 06 點和 18 點發射）。
-          if { [ "$CURRENT_HOUR" = "05" ] || [ "$CURRENT_HOUR" = "17" ]; } && [ "$CURRENT_MONTH" -ge 3 ] && [ "$CURRENT_MONTH" -le 11 ]; then
-            echo "目前為夏令月份，05點與17點不發射，留給06點與18點排程。收工！"
+          export TZ="America/New_York"
+          NY_HOUR=$(date +%H)
+          echo "目前紐約時間: ${NY_HOUR} 點 (台灣時間: $(date -d '@'"$(date +%s)" -u +'%H:%M' --date='8 hours') )"
+
+          # 🎯 核心防線：非紐約 05 或 17 點則安全攔截
+          if [ "$NY_HOUR" != "05" ] && [ "$NY_HOUR" != "17" ]; then
+            echo "非標準發射窗口（美東 05/17 點），安全攔截。"
             exit 0
           fi
-          
-          # 🚀 【不換行排版】拿掉網址前的 %0A，讓網址直接黏在「開啟儀表板：」後面！
+
+          echo "時區檢驗通過，開始發射通知！"
           TEXT="🛡️ 美股情報室數據已更新！%0A🚀 開啟儀表板：https://mjtsai-code.github.io/STOCK_ALERT/"
-          
-          curl -s -X POST "https://api.telegram.org/bot${{ secrets.TELEGRAM_TOKEN }}/sendMessage?chat_id=${{ secrets.TELEGRAM_CHAT_ID }}&text=${TEXT}&disable_web_page_preview=true"
+
+          curl -sS --fail -X POST "https://api.telegram.org/bot${{ secrets.TELEGRAM_TOKEN }}/sendMessage" \
+            -d "chat_id=${{ secrets.TELEGRAM_CHAT_ID }}" \
+            -d "text=${TEXT}" \
+            -d "disable_web_page_preview=true"
