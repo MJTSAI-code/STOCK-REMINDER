@@ -2,7 +2,7 @@
 <html lang="zh-TW">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
 <meta name="theme-color" content="#0a0a0f">
 <title>盤前情報</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500;700&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
@@ -12,11 +12,11 @@
     --accent: #c8ff00; --accent2: #00d4ff; --text: #e8e8f0;
     --muted: #5a5a7a; --up: #39ff8a; --down: #ff4d6d; --discord: #5865F2;
   }
-  html, body { overflow-x: hidden; width: 100%; min-height: 100%; margin: 0; padding: 0; box-sizing: border-box; -webkit-font-smoothing: antialiased; background: var(--bg); color: var(--text); font-family: 'Noto Sans TC', sans-serif; }
+  html, body { overflow-x: hidden; width: 100%; min-height: 100%; margin: 0; padding: 0; box-sizing: border-box; -webkit-font-smoothing: antialiased; background: var(--bg); color: var(--text); font-family: 'Noto Sans TC', sans-serif; scroll-behavior: smooth; }
   * { box-sizing: inherit; }
   body { padding-bottom: 24px; max-width: 1200px; margin: 0 auto; }
   
-  header, .hero, .control-strip { padding: 16px 20px 0; display: flex; align-items: center; justify-content: space-between; }
+  header, .hero, .control-strip { padding: 16px 16px 0; display: flex; align-items: center; justify-content: space-between; }
   header { padding-top: 18px; }
   .logo { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.15em; color: var(--muted); text-transform: uppercase; }
   .clock, .hero-sub, .status-label, .card-price-chg, .card-news-item .news-time, .detail-news-meta { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--muted); }
@@ -31,11 +31,16 @@
   .status-label { font-size: 10px; color: var(--accent); }
   .refresh-btn { background: rgba(0,212,255,0.1); border: 1px solid var(--accent2); border-radius: 100px; padding: 6px 14px; font-size: 11px; color: var(--accent2); cursor: pointer; transition: all 0.2s; -webkit-tap-highlight-color: transparent; }
   
-  .grid { display: grid; grid-template-columns: 1fr; gap: 12px; padding: 0 16px 12px; }
-  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 16px; cursor: pointer; transition: border-color 0.2s ease; min-height: 105px; display: flex; flex-direction: column; justify-content: space-between; -webkit-tap-highlight-color: transparent; }
-  .card.expanded { border-color: var(--accent2); cursor: default; }
+  /* ⚡ 基礎網格結構 */
+  .grid { display: grid; grid-template-columns: 1fr; gap: 14px; padding: 0 12px 12px; width: 100%; transition: all 0.3s ease; }
   
-  .card-top { display: flex; justify-content: space-between; align-items: center; }
+  /* ⚡ 原地打開卡片主體 */
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 18px; cursor: pointer; transition: border-color 0.2s ease, all 0.3s ease; min-height: 105px; display: flex; flex-direction: column; justify-content: space-between; -webkit-tap-highlight-color: transparent; width: 100%; overflow: hidden; }
+  
+  /* ⚡ 完美修正：電腦版與手機版展開時，原地橫向滿版撐開，絕不攪亂同行的其他個股順序 */
+  .card.expanded { border-color: var(--accent2); cursor: default; grid-column: 1 / -1 !important; width: 100% !important; }
+  
+  .card-top { display: flex; justify-content: space-between; align-items: center; width: 100%; }
   .card-sym-wrapper { display: flex; align-items: center; gap: 8px; }
   .card-sym { font-family: 'DM Mono', monospace !important; font-size: 22px !important; font-weight: 700 !important; color: var(--accent2) !important; line-height: 1.1; }
   .market-badge { font-size: 9px; font-weight: 700; color: var(--accent); border: 1px solid var(--accent); padding: 2px 6px; border-radius: 4px; background: rgba(200, 255, 0, 0.08); display: none; }
@@ -45,22 +50,24 @@
   .card-price-chg { font-size: 11px; margin-top: 2px; }
   .up { color: var(--up) !important; } .down { color: var(--down) !important; } .neutral { color: var(--muted); }
   
-  .card-news { border-top: 1px solid var(--border); padding-top: 8px; margin-top: 8px; pointer-events: none; }
+  .card-news { border-top: 1px solid var(--border); padding-top: 8px; margin-top: 8px; pointer-events: none; width: 100%; }
   .card.expanded .card-news { display: none; }
-  .card-news-item { font-size: 11px; color: var(--text); line-height: 1.6; padding: 5px 0; border-bottom: 1px solid rgba(255,255,255,0.04); text-overflow: ellipsis; overflow: hidden; white-space: nowrap; }
+  .card-news-item { font-size: 11px; color: var(--text); line-height: 1.6; padding: 5px 0; border-bottom: 1px solid rgba(255,255,255,0.04); text-overflow: ellipsis; overflow: hidden; white-space: nowrap; width: 100%; }
   .card-news-item:last-child { border-bottom: none; }
   
-  .card-detail { display: none; margin-top: 12px; border-top: 1px solid var(--border); padding-top: 12px; cursor: default; }
+  /* 展開後的細節面板 */
+  .card-detail { display: none; margin-top: 16px; border-top: 1px solid var(--border); padding-top: 16px; cursor: default; width: 100%; }
   .card.expanded .card-detail { display: block; }
   
-  .chart-box { border-radius: 10px; overflow: hidden; border: 1px solid var(--border); height: 320px; margin-bottom: 14px; background: var(--bg); }
-  .chart-box iframe { width: 100%; height: 100%; border: none; }
+  /* ⚡ 徹底修正圖表兩側切邊與行動端上一頁被卡住的問題 */
+  .chart-box { border-radius: 10px; overflow: hidden; border: 1px solid var(--border); height: 260px; margin-bottom: 16px; background: var(--bg); width: 100%; max-width: 100%; display: block; position: relative; }
+  .chart-box iframe { width: 100%; height: 100%; border: none; display: block; pointer-events: auto; }
   
-  .detail-news-item { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 12px; margin-bottom: 8px; text-decoration: none; display: block; -webkit-tap-highlight-color: transparent; }
-  .detail-news-title { font-size: 12px; color: var(--text); line-height: 1.5; }
-  .detail-news-item:active { border-color: var(--accent) !important; background: rgba(200, 255, 0, 0.06); }
+  .detail-news-item { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 14px; margin-bottom: 10px; text-decoration: none; display: block; -webkit-tap-highlight-color: transparent; width: 100%; }
+  .detail-news-title { font-size: 13px; color: var(--text); line-height: 1.5; }
+  .detail-news-item:active, .detail-news-item:hover { border-color: var(--accent2); background: rgba(0, 212, 255, 0.04); }
   
-  .discord-box { margin: 12px 16px; padding: 16px; background: rgba(88,101,242,0.03); border: 1px solid rgba(88,101,242,0.15); border-radius: 16px; display: flex; flex-direction: column; gap: 10px; }
+  .discord-box { margin: 12px 12px; padding: 16px; background: rgba(88,101,242,0.03); border: 1px solid rgba(88,101,242,0.15); border-radius: 16px; display: flex; flex-direction: column; gap: 10px; }
   .discord-title { font-size: 12px; font-weight: 500; color: #5865F2; display: flex; align-items: center; gap: 6px; }
   .discord-text { font-size: 11px; color: var(--muted); line-height: 1.8; }
   .discord-highlight { color: var(--accent); border: 1px solid var(--accent); border-radius: 100px; padding: 1px 6px; font-size: 10px; background: rgba(200, 255, 0, 0.05); }
@@ -68,21 +75,26 @@
   .discord-btn { width: 100%; padding: 12px; background: var(--discord); color: #fff; border: none; border-radius: 12px; font-size: 12px; font-weight: 500; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none; }
   .discord-btn-join { background: transparent; border: 1.5px solid var(--discord); }
   
-  .notice { margin: 0 16px; padding: 10px 12px; background: rgba(0, 212, 255, 0.05); border: 1px solid rgba(0, 212, 255, 0.2); border-radius: 10px; font-size: 10px; color: var(--accent2); line-height: 1.7; }
+  .notice { margin: 0 12px; padding: 10px 12px; background: rgba(0, 212, 255, 0.05); border: 1px solid rgba(0, 212, 255, 0.2); border-radius: 10px; font-size: 10px; color: var(--accent2); line-height: 1.7; }
   @keyframes blink { 0%,100%{opacity:0.2} 50%{opacity:1} }
 
+  /* ⚡ 響應式斷點：確保大螢幕原生滿版且順序完美不亂 */
   @media (min-width: 600px) {
+    header, .hero, .control-strip { padding: 16px 20px 0; }
     .hero-time { font-size: 48px; }
-    .grid { grid-template-columns: repeat(2, 1fr); gap: 12px; padding: 0 20px 20px; }
+    .grid { grid-template-columns: repeat(2, 1fr); gap: 14px; padding: 0 20px 20px; }
     .discord-box, .notice { margin: 0 20px 12px; }
     .discord-btn-group { flex-direction: row; }
     .discord-btn { flex: 1; }
-    .chart-box { height: 420px; }
+    .chart-box { height: 380px; }
   }
-  @media (min-width: 1024px) { .grid { grid-template-columns: repeat(3, 1fr); } }
+  @media (min-width: 1024px) { 
+    .grid { grid-template-columns: repeat(3, 1fr); gap: 16px; } 
+    .chart-box { height: 460px; } 
+  }
   @media (min-width: 1200px) {
     body { max-width: 1400px; }
-    .grid { gap: 16px; padding-bottom: 0px; }
+    .grid { gap: 18px; padding-bottom: 0px; }
     .discord-box { margin: 4px 16px; padding: 10px 14px; }
     .notice { margin: 0 16px; padding: 6px 12px; }
   }
@@ -210,16 +222,15 @@ function buildGrid() {
   `).join('');
 }
 
+// ⚡ 核心排版引擎：原地擴展為全寬度，且完美不攪亂其他卡片同行位置
 function toggleCard(sym, ex, event) {
-  if (event.target.closest('.detail-news-item')) {
-    event.stopPropagation();
-    return;
-  }
+  if (event.target.closest('.card-detail')) return; // 防禦點擊內部元件觸發縮回
   
   const card = document.getElementById(`card-${sym}`);
   if (!card) return;
   const isExp = card.classList.contains('expanded');
   
+  // 如果有點開別張，先收起來
   if (expandedSym && expandedSym !== sym) {
     const prevCard = document.getElementById(`card-${expandedSym}`);
     if (prevCard) {
@@ -234,9 +245,13 @@ function toggleCard(sym, ex, event) {
     card.classList.add('expanded');
     expandedSym = sym;
 
+    // 載入 TradingView 圖表
     const iframe = document.getElementById(`chart-${sym}`);
-    if (iframe) iframe.src = `https://www.tradingview.com/widgetembed/?symbol=${ex}:${sym}&interval=D&hidesidetoolbar=1&theme=dark&style=1&timezone=Asia/Taipei&locale=zh_TW`;
+    if (iframe) {
+      iframe.src = `https://www.tradingview.com/widgetembed/?symbol=${ex}:${sym}&interval=D&hidesidetoolbar=1&theme=dark&style=1&timezone=Asia/Taipei&locale=zh_TW`;
+    }
     
+    // 渲染深度新聞
     const box = document.getElementById('detail-news-' + sym);
     if (box) {
       const items = globalDataCache?.[sym]?.news;
@@ -257,6 +272,12 @@ function toggleCard(sym, ex, event) {
         `).join('');
       }
     }
+    
+    // ⚡ 修正精準置中：等待 DOM 完全展開渲染後，滑順地將頂端移至視野最上方，絕不卡在奇怪視角
+    setTimeout(() => {
+      card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 150);
+
   } else {
     card.classList.remove('expanded');
     expandedSym = null;
@@ -265,6 +286,7 @@ function toggleCard(sym, ex, event) {
   }
 }
 
+// 支援瀏覽器與手機原生上一頁手勢自動折疊
 window.addEventListener('popstate', function() {
   if (expandedSym) {
     const card = document.getElementById(`card-${expandedSym}`);
@@ -333,7 +355,7 @@ async function loadCloudData() {
     
     if (statusEl) {
       const nowTime = new Date();
-      statusEl.textContent = `定時同步中 (${String(nowTime.getHours()).padStart(2, '0')}:${String(nowTime.getMinutes()).padStart(2, '0')})`;
+      statusEl.textContent = `雲端同步完畢 (${String(nowTime.getHours()).padStart(2, '0')}:${String(nowTime.getMinutes()).padStart(2, '0')}更新)`;
     }
   } catch(e) {
     console.error(e);
