@@ -38,7 +38,6 @@ def fetch_stock_data():
             try:
                 for item in (ticker.news or [])[:3]:
                     content = item.get('content', {})
-
                     title = (
                         content.get('title') or
                         item.get('title') or
@@ -76,23 +75,27 @@ def fetch_stock_data():
 
             output_data[sym] = {
                 "quote": {
-                    "c":            round(current_price,  2),
-                    "d":            round(dollar_change,  2),
-                    "dp":           round(percent_change, 4),
-                    "regular":      round(regular_price,  2),
-                    "pre":          round(pre_price,  2) if pre_price  else None,
-                    "post":         round(post_price, 2) if post_price else None,
-                    "prev_close":   round(previous_close, 2),
-                    "phase":        phase
+                    "c":          round(current_price,  2),
+                    "d":          round(dollar_change,  2),
+                    "dp":         round(percent_change, 4),
+                    "regular":    round(regular_price,  2),
+                    "pre":        round(pre_price,  2) if pre_price  else None,
+                    "post":       round(post_price, 2) if post_price else None,
+                    "prev_close": round(previous_close, 2),
+                    "phase":      phase
                 },
                 "news": news_list
             }
-            print(f"  ✅ {sym} [{phase}] ${current_price:.2f} ({dollar_change:+.2f}) 新聞:{len(news_list)}則")
+            print(f"  ✅ {sym} [{phase}] ${current_price:.2f} ({dollar_change:+.2f})")
 
         except Exception as e:
             print(f"  ❌ {sym} 失敗: {e}")
             output_data[sym] = {
-                "quote": {"c": 0.0, "d": 0.0, "dp": 0.0, "regular": 0.0, "pre": None, "post": None, "prev_close": 0.0, "phase": ""},
+                "quote": {
+                    "c": 0.0, "d": 0.0, "dp": 0.0,
+                    "regular": 0.0, "pre": None, "post": None,
+                    "prev_close": 0.0, "phase": ""
+                },
                 "news": []
             }
 
