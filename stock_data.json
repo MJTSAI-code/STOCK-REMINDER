@@ -1,13 +1,13 @@
 {
   "name": "美股盤前情報資料庫",
-  "updated_at": "2026-06-06T01:26:02.152807+08:00",
+  "updated_at": "2026-06-06T03:23:00.316978+08:00",
   "data": {
     "NOW": {
       "quote": {
-        "c": 113.49,
-        "d": -5.87,
-        "dp": -4.9179,
-        "regular": 113.49,
+        "c": 111.93,
+        "d": -7.43,
+        "dp": -6.2249,
+        "regular": 111.93,
         "pre": null,
         "post": null,
         "prev_close": 119.36,
@@ -16,19 +16,19 @@
       "news": [
         {
           "headline": "ServiceNow Stock Plunges 30% in 6 Months: Hold Tight or Book Profits?",
-          "datetime": 1780680360,
+          "datetime": 1780687378,
           "source": "Yahoo Finance",
           "url": "https://finance.yahoo.com/markets/stocks/articles/servicenow-stock-plunges-30-6-124500486.html"
         },
         {
           "headline": "Cloud AI Update - Devenex Launches Governance Infrastructure for Enterprise AI Agents",
-          "datetime": 1780680360,
+          "datetime": 1780687378,
           "source": "Yahoo Finance",
           "url": "https://finance.yahoo.com/sectors/technology/articles/cloud-ai-devenex-launches-governance-123801310.html"
         },
         {
           "headline": "Cognizant Tie Up Puts ServiceNow At Center Of AI Governance Story",
-          "datetime": 1780680360,
+          "datetime": 1780687378,
           "source": "Yahoo Finance",
           "url": "https://finance.yahoo.com/markets/stocks/articles/cognizant-tie-puts-servicenow-center-100948532.html"
         }
@@ -36,10 +36,10 @@
     },
     "NVDA": {
       "quote": {
-        "c": 207.39,
-        "d": -11.27,
-        "dp": -5.1541,
-        "regular": 207.39,
+        "c": 205.0,
+        "d": -13.66,
+        "dp": -6.2471,
+        "regular": 205.0,
         "pre": null,
         "post": null,
         "prev_close": 218.66,
@@ -47,31 +47,31 @@
       },
       "news": [
         {
-          "headline": "The stock market's scorching run means the rich will keep getting richer: Chart",
-          "datetime": 1780680360,
+          "headline": "Stock market today: Nasdaq plunges, Dow and S&P 500 sink as jobs report fuels Fed hike bets, chip stocks sell off",
+          "datetime": 1780687379,
           "source": "Yahoo Finance",
-          "url": "https://finance.yahoo.com/markets/article/the-stock-markets-scorching-run-means-the-rich-will-keep-getting-richer-chart-135939239.html"
+          "url": "https://finance.yahoo.com/markets/live/stock-market-today-dow-sp-500-nasdaq-sink-as-jobs-report-fuels-fed-hike-bets-chip-stocks-sell-off-230134285.html"
         },
         {
-          "headline": "Broadcom's sell-off just entered megacap history",
-          "datetime": 1780680360,
+          "headline": "Why Ondas Stock Zoomed 32% Higher in May",
+          "datetime": 1780687379,
           "source": "Yahoo Finance",
-          "url": "https://finance.yahoo.com/markets/stocks/article/broadcoms-sell-off-just-entered-megacap-history-163942663.html"
+          "url": "https://www.fool.com/investing/2026/06/05/why-ondas-stock-zoomed-32-higher-in-may/"
         },
         {
-          "headline": "Nvidia Shares Sink After Strong U.S. Jobs Data Sparks Tech Selloff",
-          "datetime": 1780680360,
+          "headline": "AI Layoffs Already Have Surpassed Last Year’s Total. Tech Workers Are Being Cut First.",
+          "datetime": 1780687379,
           "source": "Yahoo Finance",
-          "url": "https://finance.yahoo.com/markets/stocks/articles/nvidia-shares-sink-strong-u-172315309.html"
+          "url": "https://247wallst.com/investing/2026/06/05/ai-layoffs-already-have-surpassed-last-years-total-tech-workers-are-being-cut-first/"
         }
       ]
     },
     "LITE": {
       "quote": {
-        "c": 875.16,
-        "d": -69.92,
-        "dp": -7.3978,
-        "regular": 875.16,
+        "c": 865.01,
+        "d": -80.07,
+        "dp": -8.4718,
+        "regular": 865.01,
         "pre": null,
         "post": null,
         "prev_close": 945.08,
@@ -79,20 +79,20 @@
       },
       "news": [
         {
-          "headline": "Ciena's Mountain Of Orders Is Starting To Look A Little Scary",
-          "datetime": 1780680361,
-          "source": "Yahoo Finance",
-          "url": "https://www.trefis.com/articles/601621/cienas-mountain-of-orders-is-starting-to-look-a-little-scary/2026-06-05"
-        },
-        {
           "headline": "Stocks to Watch: Lululemon, Broadcom, Lumentum Holdings",
-          "datetime": 1780680361,
+          "datetime": 1780687379,
           "source": "Yahoo Finance",
           "url": "https://www.wsj.com/livecoverage/may-jobs-report-stock-market-06-05-2026/card/stocks-to-watch-lululemon-broadcom-lumentum-holdings-JNe0Igf0hcn4NHX9cbZn?siteid=yhoof2&yptr=yahoo"
         },
         {
+          "headline": "Ciena's Mountain Of Orders Is Starting To Look A Little Scary",
+          "datetime": 1780687379,
+          "source": "Yahoo Finance",
+          "url": "https://www.trefis.com/articles/601621/cienas-mountain-of-orders-is-starting-to-look-a-little-scary/2026-06-05"
+        },
+        {
           "headline": "Applied Optoelectronics (AAOI) Soars 10% as Exec Highlights Growing Optics Technology Role",
-          "datetime": 1780680361,
+          "datetime": 1780687379,
           "source": "Yahoo Finance",
           "url": "https://finance.yahoo.com/markets/stocks/articles/applied-optoelectronics-aaoi-soars-10-012106039.html"
         }
@@ -100,10 +100,10 @@
     },
     "ONDS": {
       "quote": {
-        "c": 10.63,
-        "d": -1.34,
-        "dp": -11.1947,
-        "regular": 10.63,
+        "c": 10.44,
+        "d": -1.54,
+        "dp": -12.8237,
+        "regular": 10.44,
         "pre": null,
         "post": null,
         "prev_close": 11.97,
@@ -111,31 +111,31 @@
       },
       "news": [
         {
+          "headline": "Why Ondas Stock Zoomed 32% Higher in May",
+          "datetime": 1780687379,
+          "source": "Yahoo Finance",
+          "url": "https://www.fool.com/investing/2026/06/05/why-ondas-stock-zoomed-32-higher-in-may/"
+        },
+        {
           "headline": "A Look At Ondas (ONDS) Valuation After A Sharp One Day Share Price Drop",
-          "datetime": 1780680361,
+          "datetime": 1780687379,
           "source": "Yahoo Finance",
           "url": "https://finance.yahoo.com/markets/stocks/articles/look-ondas-onds-valuation-sharp-180855714.html"
         },
         {
           "headline": "Ondas (ONDS) Secures More Than $30M in New Orders During May",
-          "datetime": 1780680361,
+          "datetime": 1780687379,
           "source": "Yahoo Finance",
           "url": "https://finance.yahoo.com/markets/stocks/articles/ondas-onds-secures-more-30m-165009393.html"
-        },
-        {
-          "headline": "ONDS' Growing Active Opportunity Pipeline: Multi-Year Growth Secured?",
-          "datetime": 1780680361,
-          "source": "Yahoo Finance",
-          "url": "https://finance.yahoo.com/markets/stocks/articles/onds-growing-active-opportunity-pipeline-151300145.html"
         }
       ]
     },
     "MRVL": {
       "quote": {
-        "c": 281.66,
-        "d": -34.77,
-        "dp": -10.9882,
-        "regular": 281.66,
+        "c": 273.05,
+        "d": -43.38,
+        "dp": -13.7092,
+        "regular": 273.05,
         "pre": null,
         "post": null,
         "prev_close": 316.43,
@@ -144,30 +144,30 @@
       "news": [
         {
           "headline": "Intel, AMD, Micron shares trim losses after Broadcom results spark semiconductor sector sell-off",
-          "datetime": 1780680361,
+          "datetime": 1780687379,
           "source": "Yahoo Finance",
           "url": "https://finance.yahoo.com/markets/stocks/article/intel-amd-micron-shares-trim-losses-after-broadcom-results-spark-semiconductor-sector-sell-off-130128361.html"
         },
         {
-          "headline": "Raymond James Raises its Price Target on Marvell (MRVL) to $235 from $105",
-          "datetime": 1780680361,
+          "headline": "After Months of Watching AI Innovation ETFs Run These 3 Active Funds Stand Out and the Revolution Has Barely Started",
+          "datetime": 1780687379,
           "source": "Yahoo Finance",
-          "url": "https://finance.yahoo.com/markets/stocks/articles/raymond-james-raises-price-target-164257105.html"
+          "url": "https://247wallst.com/investing/2026/06/05/after-months-of-watching-ai-innovation-etfs-run-these-3-active-funds-stand-out-and-the-revolution-has-barely-started/"
         },
         {
-          "headline": "Broadcom and Intel Stocks Drop. The Chip Selloff Isn’t Done Yet.",
-          "datetime": 1780680361,
+          "headline": "Marvell Technology Stock And The Forecast That Keeps Getting Bigger",
+          "datetime": 1780687379,
           "source": "Yahoo Finance",
-          "url": "https://www.barrons.com/articles/broadcom-intel-stocks-chip-selloff-2882e2ad?siteid=yhoof2&yptr=yahoo"
+          "url": "https://www.trefis.com/articles/601607/marvell-technology-stock-and-the-forecast-that-keeps-getting-bigger/2026-06-05"
         }
       ]
     },
     "GOOG": {
       "quote": {
-        "c": 367.06,
-        "d": -2.2,
-        "dp": -0.5971,
-        "regular": 367.06,
+        "c": 362.03,
+        "d": -7.24,
+        "dp": -1.9606,
+        "regular": 362.03,
         "pre": null,
         "post": null,
         "prev_close": 369.27,
@@ -175,22 +175,22 @@
       },
       "news": [
         {
-          "headline": "How skeptical should investors be of these mega-IPOs?",
-          "datetime": 1780680362,
+          "headline": "Tech stocks today: Nvidia stock drops 6% in ugly day for chip stocks",
+          "datetime": 1780687380,
           "source": "Yahoo Finance",
-          "url": "https://finance.yahoo.com/video/skeptical-investors-mega-ipos-160000555.html"
+          "url": "https://finance.yahoo.com/sectors/technology/live/tech-stocks-today-nvidia-stock-drops-6-in-ugly-day-for-chip-stocks-100000734.html"
         },
         {
-          "headline": "Alphabet Stock Slides After Report Reveals Cloud Division Layoffs",
-          "datetime": 1780680362,
+          "headline": "Market Chatter: Meta Weighing Tens of Billions in Stock Offering to Fund AI Ambitions",
+          "datetime": 1780687380,
           "source": "Yahoo Finance",
-          "url": "https://finance.yahoo.com/markets/stocks/articles/alphabet-stock-slides-report-reveals-171649249.html"
+          "url": "https://finance.yahoo.com/markets/stocks/articles/market-chatter-meta-weighing-tens-185601599.html"
         },
         {
-          "headline": "Vanguard’s $223 Billion Growth ETF VUG Is Quietly Beating Most Large Cap Active Funds at One Tenth the Cost",
-          "datetime": 1780680362,
+          "headline": "SpaceX signs cloud deal with Google",
+          "datetime": 1780687380,
           "source": "Yahoo Finance",
-          "url": "https://247wallst.com/investing/2026/06/05/vanguards-223-billion-growth-etf-vug-is-quietly-beating-most-large-cap-active-funds-at-one-tenth-the-cost/"
+          "url": "https://finance.yahoo.com/sectors/technology/articles/spacex-signs-cloud-deal-google-185448763.html"
         }
       ]
     }
