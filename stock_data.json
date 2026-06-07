@@ -1,6 +1,6 @@
 {
   "name": "美股盤前情報資料庫",
-  "updated_at": "2026-06-07T23:08:07.741159+08:00",
+  "updated_at": "2026-06-07T23:14:00.421572+08:00",
   "data": {
     "NOW": {
       "quote": {
@@ -16,19 +16,19 @@
       "news": [
         {
           "headline": "AI stock mania is taking over the markets in 2026",
-          "datetime": 1780844886,
+          "datetime": 1780845238,
           "source": "Yahoo Finance",
           "url": "https://finance.yahoo.com/markets/article/ai-stock-mania-is-taking-over-the-markets-in-2026-123000964.html"
         },
         {
           "headline": "Is Salesforce or ServiceNow a Better Stock to Buy Right Now?",
-          "datetime": 1780844886,
+          "datetime": 1780845238,
           "source": "Yahoo Finance",
           "url": "https://www.fool.com/investing/2026/06/06/is-salesforce-or-servicenow-a-better-stock-to-buy/"
         },
         {
           "headline": "Why ServiceNow (NOW) Shares Are Falling Today",
-          "datetime": 1780844886,
+          "datetime": 1780845238,
           "source": "Yahoo Finance",
           "url": "https://finance.yahoo.com/markets/stocks/articles/why-servicenow-now-shares-falling-024014947.html"
         }
@@ -48,21 +48,21 @@
       "news": [
         {
           "headline": "AI stock mania is taking over the markets in 2026",
-          "datetime": 1780844886,
+          "datetime": 1780845238,
           "source": "Yahoo Finance",
           "url": "https://finance.yahoo.com/markets/article/ai-stock-mania-is-taking-over-the-markets-in-2026-123000964.html"
         },
         {
           "headline": "Wall Street's hottest trade is cracking in a trillion-dollar wipeout",
-          "datetime": 1780844886,
+          "datetime": 1780845238,
           "source": "Yahoo Finance",
           "url": "https://finance.yahoo.com/markets/article/wall-streets-hottest-trade-is-cracking-in-a-trillion-dollar-wipeout-184540683.html"
         },
         {
-          "headline": "Is Harmonic Inc. (HLIT) A Good Stock To Buy Now?",
-          "datetime": 1780844886,
+          "headline": "After Shares Surged 84% in a Month, Micron's CEO Just Sold $38 Million of Stock. Should Investors Be Worried?",
+          "datetime": 1780845238,
           "source": "Yahoo Finance",
-          "url": "https://finance.yahoo.com/markets/stocks/articles/harmonic-inc-hlit-good-stock-145254183.html"
+          "url": "https://www.fool.com/investing/2026/06/07/shares-surge-84-month-micron-ceo-sold-stock/"
         }
       ]
     },
@@ -80,19 +80,19 @@
       "news": [
         {
           "headline": "Stocks to Watch Recap: Lululemon, Broadcom, Lumentum Holdings",
-          "datetime": 1780844886,
+          "datetime": 1780845239,
           "source": "Yahoo Finance",
           "url": "https://www.wsj.com/livecoverage/may-jobs-report-stock-market-06-05-2026/card/stocks-to-watch-lululemon-broadcom-lumentum-holdings-JNe0Igf0hcn4NHX9cbZn?siteid=yhoof2&yptr=yahoo"
         },
         {
           "headline": "Why Lumentum Holdings (LITE) Is Up 9.8% After Major Note Swap, AI Boost And U.S. Expansion",
-          "datetime": 1780844886,
+          "datetime": 1780845239,
           "source": "Yahoo Finance",
           "url": "https://finance.yahoo.com/markets/stocks/articles/why-lumentum-holdings-lite-9-211725818.html"
         },
         {
           "headline": "Ciena's Mountain Of Orders Is Starting To Look A Little Scary",
-          "datetime": 1780844886,
+          "datetime": 1780845239,
           "source": "Yahoo Finance",
           "url": "https://www.trefis.com/articles/601621/cienas-mountain-of-orders-is-starting-to-look-a-little-scary/2026-06-05"
         }
@@ -112,19 +112,19 @@
       "news": [
         {
           "headline": "Why Ondas Stock Zoomed 32% Higher in May",
-          "datetime": 1780844887,
+          "datetime": 1780845239,
           "source": "Yahoo Finance",
           "url": "https://www.fool.com/investing/2026/06/05/why-ondas-stock-zoomed-32-higher-in-may/"
         },
         {
           "headline": "A Look At Ondas (ONDS) Valuation After A Sharp One Day Share Price Drop",
-          "datetime": 1780844887,
+          "datetime": 1780845239,
           "source": "Yahoo Finance",
           "url": "https://finance.yahoo.com/markets/stocks/articles/look-ondas-onds-valuation-sharp-180855714.html"
         },
         {
           "headline": "Ondas (ONDS) Secures More Than $30M in New Orders During May",
-          "datetime": 1780844887,
+          "datetime": 1780845239,
           "source": "Yahoo Finance",
           "url": "https://finance.yahoo.com/markets/stocks/articles/ondas-onds-secures-more-30m-165009393.html"
         }
@@ -144,19 +144,19 @@
       "news": [
         {
           "headline": "Why Marvell Technology Rallied in May",
-          "datetime": 1780844887,
+          "datetime": 1780845240,
           "source": "Yahoo Finance",
           "url": "https://www.fool.com/investing/2026/06/07/why-marvell-technology-rallied-in-may/"
         },
         {
           "headline": "Nvidia CEO Jensen Huang Says This Is the Next Trillion-Dollar AI Chip Stock. Is He Right?",
-          "datetime": 1780844887,
+          "datetime": 1780845240,
           "source": "Yahoo Finance",
           "url": "https://www.fool.com/investing/2026/06/06/nvidia-ceo-jensen-huang-trillion-ai-chip-stock/"
         },
         {
           "headline": "Marvell Gets Another Shout-Out: It Is Joining the S&P 500",
-          "datetime": 1780844887,
+          "datetime": 1780845240,
           "source": "Yahoo Finance",
           "url": "https://www.investopedia.com/marvell-gets-another-shout-out-it-and-flex-are-joining-the-s-and-p-500-later-this-month-mrvl-stock-11992623"
         }
@@ -176,19 +176,19 @@
       "news": [
         {
           "headline": "Is AECOM (ACM) A Good Stock To Buy Now?",
-          "datetime": 1780844887,
+          "datetime": 1780845240,
           "source": "Yahoo Finance",
           "url": "https://finance.yahoo.com/markets/stocks/articles/aecom-acm-good-stock-buy-144643137.html"
         },
         {
           "headline": "Alphabet Weighs SpaceX AI Deal And $85b Raise Against Valuation Concerns",
-          "datetime": 1780844887,
+          "datetime": 1780845240,
           "source": "Yahoo Finance",
           "url": "https://finance.yahoo.com/markets/stocks/articles/alphabet-weighs-spacex-ai-deal-141246480.html"
         },
         {
           "headline": "WWDC 2026 Puts Apple’s AI Pivot And Services Valuation In Focus",
-          "datetime": 1780844887,
+          "datetime": 1780845240,
           "source": "Yahoo Finance",
           "url": "https://finance.yahoo.com/markets/stocks/articles/wwdc-2026-puts-apple-ai-141211200.html"
         }
