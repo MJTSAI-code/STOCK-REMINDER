@@ -1,98 +1,98 @@
 {
   "name": "美股盤前情報資料庫",
-  "updated_at": "2026-06-09T05:18:58.031329+08:00",
+  "updated_at": "2026-06-09T18:42:55.653778+08:00",
   "data": {
     "NOW": {
       "quote": {
-        "c": 113.7,
-        "d": 1.25,
-        "dp": 1.1127,
+        "c": 113.49,
+        "d": 1.04,
+        "dp": 0.9273,
         "regular": 114.19,
-        "pre": null,
-        "post": 113.7,
+        "pre": 113.49,
+        "post": null,
         "prev_close": 112.45,
-        "phase": "盤後"
+        "phase": "盤前"
       },
       "news": [
         {
-          "headline": "DELL's Strong Partner Network Drives ISG Growth: What's Ahead?",
-          "datetime": 1780953536,
+          "headline": "Assessing NOW Corporation (PSE:NOW) Valuation After Recent Share Price Volatility",
+          "datetime": 1781001774,
           "source": "Yahoo Finance",
-          "url": "https://finance.yahoo.com/markets/stocks/articles/dells-strong-partner-network-drives-160000558.html"
+          "url": "https://finance.yahoo.com/markets/stocks/articles/assessing-now-corporation-pse-now-071218203.html"
         },
         {
-          "headline": "Can Atlassian's Cloud Momentum Sustain Strong Revenue Growth?",
-          "datetime": 1780953536,
+          "headline": "Trump’s ServiceNow Buy Tests SaaS Valuations And Geopolitical Growth Risks",
+          "datetime": 1781001774,
           "source": "Yahoo Finance",
-          "url": "https://finance.yahoo.com/markets/stocks/articles/atlassians-cloud-momentum-sustain-strong-152000881.html"
+          "url": "https://finance.yahoo.com/markets/stocks/articles/trump-servicenow-buy-tests-saas-231920775.html"
         },
         {
-          "headline": "2 Mooning  Stocks with Promising Prospects and 1 We Brush Off",
-          "datetime": 1780953536,
+          "headline": "ServiceNow (NOW) Exceeds Market Returns: Some Facts to Consider",
+          "datetime": 1781001774,
           "source": "Yahoo Finance",
-          "url": "https://finance.yahoo.com/markets/stocks/articles/2-mooning-stocks-promising-prospects-094950039.html"
+          "url": "https://finance.yahoo.com/markets/stocks/articles/servicenow-now-exceeds-market-returns-214502695.html"
         }
       ]
     },
     "NVDA": {
       "quote": {
-        "c": 208.06,
-        "d": 2.96,
-        "dp": 1.4432,
+        "c": 209.78,
+        "d": 4.68,
+        "dp": 2.2797,
         "regular": 208.64,
-        "pre": null,
-        "post": 208.06,
+        "pre": 209.78,
+        "post": null,
         "prev_close": 205.1,
-        "phase": "盤後"
+        "phase": "盤前"
       },
       "news": [
         {
           "headline": "Stock market today: S&P 500, Nasdaq rise on chip stock rebound, Dow slips",
-          "datetime": 1780953536,
+          "datetime": 1781001774,
           "source": "Yahoo Finance",
           "url": "https://finance.yahoo.com/markets/live/stock-market-today-monday-june-8-dow-sp-500-nasdaq-jump-085310403.html"
         },
         {
-          "headline": "Amazon–Corning AI deal, Marvell stock surges on S&P 500 inclusion",
-          "datetime": 1780953536,
+          "headline": "Synopsys CEO on AI outlook, Nvidia partnership",
+          "datetime": 1781001774,
           "source": "Yahoo Finance",
-          "url": "https://finance.yahoo.com/video/amazoncorning-ai-deal-marvell-stock-surges-on-sp-500-inclusion-151008035.html"
+          "url": "https://finance.yahoo.com/video/synopsys-ceo-on-ai-outlook-nvidia-partnership-160121768.html"
         },
         {
-          "headline": "Are semiconductor stocks, AI trade in recovery mode after selloff?",
-          "datetime": 1780953536,
+          "headline": "Wall St futures tick up as chips extend gains",
+          "datetime": 1781001774,
           "source": "Yahoo Finance",
-          "url": "https://finance.yahoo.com/video/are-semiconductor-stocks-ai-trade-in-recovery-mode-after-selloff-133035842.html"
+          "url": "https://finance.yahoo.com/markets/stocks/articles/wall-st-futures-tick-chips-102318327.html"
         }
       ]
     },
     "LITE": {
       "quote": {
-        "c": 894.25,
-        "d": 30.59,
-        "dp": 3.5419,
+        "c": 913.45,
+        "d": 49.79,
+        "dp": 5.7654,
         "regular": 895.4,
-        "pre": null,
-        "post": 894.25,
+        "pre": 913.45,
+        "post": null,
         "prev_close": 863.66,
-        "phase": "盤後"
+        "phase": "盤前"
       },
       "news": [
         {
           "headline": "Corning Stock Rises. Glassmaker Scores Multibillion-Dollar Deal With Amazon",
-          "datetime": 1780953537,
+          "datetime": 1781001774,
           "source": "Yahoo Finance",
           "url": "https://www.barrons.com/articles/corning-stock-amazon-c9d2db36?siteid=yhoof2&yptr=yahoo"
         },
         {
           "headline": "Why Applied Optoelectronics Sank 13%",
-          "datetime": 1780953537,
+          "datetime": 1781001774,
           "source": "Yahoo Finance",
           "url": "https://www.trefis.com/articles/601841/why-applied-optoelectronics-sank-13/2026-06-08"
         },
         {
           "headline": "Is Surging AI Demand Driving Lumentum's Stronger Q4 Guidance?",
-          "datetime": 1780953537,
+          "datetime": 1781001774,
           "source": "Yahoo Finance",
           "url": "https://finance.yahoo.com/sectors/technology/articles/surging-ai-demand-driving-lumentums-153100034.html"
         }
@@ -100,31 +100,31 @@
     },
     "ONDS": {
       "quote": {
-        "c": 10.35,
-        "d": -0.08,
-        "dp": -0.767,
+        "c": 10.59,
+        "d": 0.16,
+        "dp": 1.5312,
         "regular": 10.3,
-        "pre": null,
-        "post": 10.35,
+        "pre": 10.59,
+        "post": null,
         "prev_close": 10.43,
-        "phase": "盤後"
+        "phase": "盤前"
       },
       "news": [
         {
           "headline": "Ondas Inc (ONDS) Short Float Exceeds 30%, Should You Buy or Short?",
-          "datetime": 1780953537,
+          "datetime": 1781001775,
           "source": "Yahoo Finance",
           "url": "https://finance.yahoo.com/markets/stocks/articles/ondas-inc-onds-short-float-161506224.html"
         },
         {
           "headline": "Look At Ondas Inc (ONDS) Stock After Record Q1 Results",
-          "datetime": 1780953537,
+          "datetime": 1781001775,
           "source": "Yahoo Finance",
           "url": "https://finance.yahoo.com/markets/stocks/articles/look-ondas-inc-onds-stock-115947710.html"
         },
         {
           "headline": "Why Ondas Stock Zoomed 32% Higher in May",
-          "datetime": 1780953537,
+          "datetime": 1781001775,
           "source": "Yahoo Finance",
           "url": "https://www.fool.com/investing/2026/06/05/why-ondas-stock-zoomed-32-higher-in-may/"
         }
@@ -132,65 +132,65 @@
     },
     "MRVL": {
       "quote": {
-        "c": 288.75,
-        "d": 25.28,
-        "dp": 9.595,
+        "c": 298.67,
+        "d": 35.2,
+        "dp": 13.3602,
         "regular": 288.85,
-        "pre": null,
-        "post": 288.75,
+        "pre": 298.67,
+        "post": null,
         "prev_close": 263.47,
-        "phase": "盤後"
+        "phase": "盤前"
       },
       "news": [
         {
           "headline": "Marvell is joining the S&P 500 — but history says the early bump comes with a big catch: Chart of the Day",
-          "datetime": 1780953537,
+          "datetime": 1781001775,
           "source": "Yahoo Finance",
           "url": "https://finance.yahoo.com/markets/article/marvell-is-joining-the-sp-500--but-history-says-the-early-bump-comes-with-a-big-catch-chart-of-the-day-174839173.html"
         },
         {
-          "headline": "Amazon–Corning AI deal, Marvell stock surges on S&P 500 inclusion",
-          "datetime": 1780953537,
+          "headline": "Why history is sounding a siren on the tech stock rout",
+          "datetime": 1781001775,
           "source": "Yahoo Finance",
-          "url": "https://finance.yahoo.com/video/amazoncorning-ai-deal-marvell-stock-surges-on-sp-500-inclusion-151008035.html"
+          "url": "https://finance.yahoo.com/markets/article/why-history-is-sounding-a-siren-on-the-tech-stock-rout-183728358.html"
         },
         {
-          "headline": "Stock Market Today, June 8: Marvell Technology Surges After S&P 500 Inclusion Confirmed",
-          "datetime": 1780953537,
+          "headline": "Amazon–Corning AI deal, Marvell stock surges on S&P 500 inclusion",
+          "datetime": 1781001775,
           "source": "Yahoo Finance",
-          "url": "https://www.fool.com/coverage/stock-market-today/2026/06/08/stock-market-today-june-8-marvell-technology-surges-after-sp-500-inclusion-confirmed/"
+          "url": "https://finance.yahoo.com/video/amazoncorning-ai-deal-marvell-stock-surges-on-sp-500-inclusion-151008035.html"
         }
       ]
     },
     "GOOG": {
       "quote": {
-        "c": 361.19,
-        "d": -4.57,
-        "dp": -1.2495,
+        "c": 363.44,
+        "d": -2.32,
+        "dp": -0.6337,
         "regular": 361.17,
-        "pre": null,
-        "post": 361.19,
+        "pre": 363.44,
+        "post": null,
         "prev_close": 365.76,
-        "phase": "盤後"
+        "phase": "盤前"
       },
       "news": [
         {
           "headline": "Why Apple's AI pivot with new Siri is raising some red flags",
-          "datetime": 1780953538,
+          "datetime": 1781001775,
           "source": "Yahoo Finance",
           "url": "https://finance.yahoo.com/video/why-apples-ai-pivot-with-new-siri-is-raising-some-red-flags-194611747.html"
         },
         {
-          "headline": "US Equity Indexes Mixed Amid Big-Tech Gains as Iran, Israel Halt Strikes After Trump Calls for Ceasefire",
-          "datetime": 1780953538,
+          "headline": "Market Chatter: SONY Upgrades Struggling Xperia Smartphone With AI Features",
+          "datetime": 1781001775,
           "source": "Yahoo Finance",
-          "url": "https://finance.yahoo.com/markets/stocks/articles/us-equity-indexes-mixed-amid-210530538.html"
+          "url": "https://finance.yahoo.com/sectors/technology/articles/market-chatter-sony-upgrades-struggling-092617265.html"
         },
         {
-          "headline": "Tech-Heavy Nasdaq Snaps 3-Day Losing Streak",
-          "datetime": 1780953538,
+          "headline": "Google Parent Alphabet Is Issuing More Shares. Time to Sell?",
+          "datetime": 1781001775,
           "source": "Yahoo Finance",
-          "url": "https://finance.yahoo.com/markets/stocks/articles/tech-heavy-nasdaq-snaps-3-205119021.html"
+          "url": "https://www.fool.com/investing/2026/06/09/google-parent-alphabet-issuing-shares-time-sell/"
         }
       ]
     }
