@@ -1,14 +1,14 @@
 {
   "name": "美股盤前情報資料庫",
-  "updated_at": "2026-06-11T20:30:14.863544+08:00",
+  "updated_at": "2026-06-11T20:32:01.769244+08:00",
   "data": {
     "NOW": {
       "quote": {
-        "c": 105.52,
-        "d": -1.45,
-        "dp": -1.3555,
+        "c": 105.05,
+        "d": -1.92,
+        "dp": -1.7935,
         "regular": 106.06,
-        "pre": 105.52,
+        "pre": 105.05,
         "post": null,
         "prev_close": 106.97,
         "phase": "盤前"
@@ -16,19 +16,19 @@
       "news": [
         {
           "headline": "Buy, Hold, or Sell: Dropping 21% in a Week as a New Fed Chair Steps In, Is ServiceNow an Absolute Steal at $107?",
-          "datetime": 1781181012,
+          "datetime": 1781181120,
           "source": "Yahoo Finance",
           "url": "https://247wallst.com/investing/2026/06/11/buy-hold-or-sell-dropping-21-in-a-week-as-a-new-fed-chair-steps-in-is-servicenow-an-absolute-steal-at-107/"
         },
         {
           "headline": "ServiceNow Security Incident Tests Core Workflow And AI Governance Story",
-          "datetime": 1781181012,
+          "datetime": 1781181120,
           "source": "Yahoo Finance",
           "url": "https://finance.yahoo.com/markets/stocks/articles/servicenow-security-incident-tests-core-051306839.html"
         },
         {
           "headline": "The AI Trade Nobody Is Making Right Now -- and Why It Could Be 2026's Best Opportunity",
-          "datetime": 1781181012,
+          "datetime": 1781181120,
           "source": "Yahoo Finance",
           "url": "https://www.fool.com/investing/2026/06/10/the-ai-trade-nobody-is-making-right-now-and-why-it/"
         }
@@ -36,11 +36,11 @@
     },
     "NVDA": {
       "quote": {
-        "c": 201.9,
-        "d": -6.29,
-        "dp": -3.0205,
+        "c": 201.85,
+        "d": -6.34,
+        "dp": -3.0453,
         "regular": 200.42,
-        "pre": 201.9,
+        "pre": 201.85,
         "post": null,
         "prev_close": 208.19,
         "phase": "盤前"
@@ -48,19 +48,19 @@
       "news": [
         {
           "headline": "Why the SpaceX, OpenAI, and Anthropic IPOs won't derail the bull market",
-          "datetime": 1781181013,
+          "datetime": 1781181120,
           "source": "Yahoo Finance",
           "url": "https://finance.yahoo.com/markets/article/why-the-spacex-openai-and-anthropic-ipos-wont-derail-the-bull-market-112903023.html"
         },
         {
           "headline": "Why Super Micro stock is plunging & Cracker Barrel stock is surging",
-          "datetime": 1781181013,
+          "datetime": 1781181120,
           "source": "Yahoo Finance",
           "url": "https://finance.yahoo.com/video/why-super-micro-stock-is-plunging--cracker-barrel-stock-is-surging-150815558.html"
         },
         {
           "headline": "Is SpaceX's New Deal With Google a Game Changer? Here's My Honest Take.",
-          "datetime": 1781181013,
+          "datetime": 1781181120,
           "source": "Yahoo Finance",
           "url": "https://www.fool.com/investing/2026/06/11/is-spacexs-new-deal-with-google-a-game-changer-her/"
         }
@@ -68,11 +68,11 @@
     },
     "LITE": {
       "quote": {
-        "c": 860.0,
-        "d": 38.24,
-        "dp": 4.6534,
+        "c": 862.5,
+        "d": 40.74,
+        "dp": 4.9577,
         "regular": 853.26,
-        "pre": 860.0,
+        "pre": 862.5,
         "post": null,
         "prev_close": 821.76,
         "phase": "盤前"
@@ -80,19 +80,19 @@
       "news": [
         {
           "headline": "Top Research Reports for Merck, Southern Company & Lumentum",
-          "datetime": 1781181013,
+          "datetime": 1781181120,
           "source": "Yahoo Finance",
           "url": "https://finance.yahoo.com/markets/stocks/articles/top-research-reports-merck-southern-202300802.html"
         },
         {
           "headline": "Applied Optoelectronics Jumps 7%, Lumentum Climbs 5%, Coherent Rises 2% as Optics Stocks Ride the AI Boom",
-          "datetime": 1781181013,
+          "datetime": 1781181120,
           "source": "Yahoo Finance",
           "url": "https://247wallst.com/investing/2026/06/10/applied-optoelectronics-jumps-7-lumentum-climbs-5-coherent-rises-2-as-optics-stocks-ride-the-ai-boom/"
         },
         {
           "headline": "Wall Street dumped nearly $1 trillion in tech stocks by midday—then clawed it back and bought peanut butter and paint",
-          "datetime": 1781181013,
+          "datetime": 1781181120,
           "source": "Yahoo Finance",
           "url": "https://finance.yahoo.com/markets/stocks/articles/wall-street-dumped-nearly-1-214320003.html"
         }
@@ -112,19 +112,19 @@
       "news": [
         {
           "headline": "ONDS Stock Gains Overnight: Ondas Bets On Unified Battlefield Operations With LADOS Rollout",
-          "datetime": 1781181014,
+          "datetime": 1781181121,
           "source": "Yahoo Finance",
           "url": "https://stocktwits.com/news-articles/markets/equity/onds-stock-gains-overnight-ondas-unified-battlefield-operations-lados-eurosatory/cZKTLrCR7cu"
         },
         {
           "headline": "Cramer Calls Red-Hot Drone Stock a “Meme Stock” That Could “Rip Your Lungs Out”",
-          "datetime": 1781181014,
+          "datetime": 1781181121,
           "source": "Yahoo Finance",
           "url": "https://247wallst.com/investing/2026/06/10/cramer-calls-red-hot-drone-stock-a-meme-stock-that-could-rip-your-lungs-out/"
         },
         {
           "headline": "Why Is ONDS Stock Falling Premarket? Omnisys-Related Share Resale, Cramer’s ‘Meme Stock’ Jab Weigh",
-          "datetime": 1781181014,
+          "datetime": 1781181121,
           "source": "Yahoo Finance",
           "url": "https://stocktwits.com/news-articles/markets/equity/onds-stock-falling-premarket-omnisys-share-resale-cramer-meme-stock-jab-weigh/cZ06X5JR7Ti"
         }
@@ -132,11 +132,11 @@
     },
     "MRVL": {
       "quote": {
-        "c": 261.01,
-        "d": -5.87,
-        "dp": -2.1995,
+        "c": 261.73,
+        "d": -5.15,
+        "dp": -1.9297,
         "regular": 252.59,
-        "pre": 261.01,
+        "pre": 261.73,
         "post": null,
         "prev_close": 266.88,
         "phase": "盤前"
@@ -144,19 +144,19 @@
       "news": [
         {
           "headline": "Beyond the Sticker Price: What a Patient Investor Really Pays for Broadcom Stock",
-          "datetime": 1781181014,
+          "datetime": 1781181121,
           "source": "Yahoo Finance",
           "url": "https://www.trefis.com/articles/602497/beyond-the-sticker-price-what-a-patient-investor-really-pays-for-broadcom-stock/2026-06-11"
         },
         {
           "headline": "Stocks to Watch: Broadcom, Super Micro, Hugo Boss",
-          "datetime": 1781181014,
+          "datetime": 1781181121,
           "source": "Yahoo Finance",
           "url": "https://www.wsj.com/livecoverage/stock-market-today-dow-sp-500-nasdaq-06-11-2026/card/stocks-to-watch-broadcom-super-micro-hugo-boss-8dipg4qmCqjcatSb8m0a?siteid=yhoof2&yptr=yahoo"
         },
         {
           "headline": "Assessing Marvell Technology (MRVL) Valuation After S&P 500 Inclusion And Rising AI Infrastructure Expectations",
-          "datetime": 1781181014,
+          "datetime": 1781181121,
           "source": "Yahoo Finance",
           "url": "https://finance.yahoo.com/markets/stocks/articles/assessing-marvell-technology-mrvl-valuation-080832996.html"
         }
@@ -164,11 +164,11 @@
     },
     "GOOG": {
       "quote": {
-        "c": 353.11,
-        "d": -9.18,
-        "dp": -2.5339,
+        "c": 353.55,
+        "d": -8.74,
+        "dp": -2.4124,
         "regular": 353.32,
-        "pre": 353.11,
+        "pre": 353.55,
         "post": null,
         "prev_close": 362.29,
         "phase": "盤前"
@@ -176,19 +176,19 @@
       "news": [
         {
           "headline": "'Magnificent 7' stocks have lost $2 trillion so far this month, driving the S&P 500 decline: Chart of the Day",
-          "datetime": 1781181014,
+          "datetime": 1781181121,
           "source": "Yahoo Finance",
           "url": "https://finance.yahoo.com/markets/article/magnificent-7-stocks-have-lost-2-trillion-so-far-this-month-driving-the-sp-500-decline-chart-of-the-day-100000483.html"
         },
         {
           "headline": "Amazon vs. transport stocks, DraftKings sees prediction markets boost",
-          "datetime": 1781181014,
+          "datetime": 1781181121,
           "source": "Yahoo Finance",
           "url": "https://finance.yahoo.com/video/amazon-vs-transport-stocks-draftkings-sees-prediction-markets-boost-200152313.html"
         },
         {
           "headline": "Supermicro Computer stock sinks on $7 billion equity raise",
-          "datetime": 1781181014,
+          "datetime": 1781181121,
           "source": "Yahoo Finance",
           "url": "https://finance.yahoo.com/markets/stocks/article/supermicro-computer-stock-sinks-on-7-billion-equity-raise-124041144.html"
         }
