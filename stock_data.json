@@ -1,13 +1,13 @@
 {
   "name": "美股盤前情報資料庫",
-  "updated_at": "2026-06-13T01:52:37.293658+08:00",
+  "updated_at": "2026-06-13T03:34:37.631081+08:00",
   "data": {
     "NOW": {
       "quote": {
-        "c": 101.75,
-        "d": -1.33,
-        "dp": -1.2903,
-        "regular": 101.75,
+        "c": 101.98,
+        "d": -1.09,
+        "dp": -1.0623,
+        "regular": 101.98,
         "pre": null,
         "post": null,
         "prev_close": 103.08,
@@ -16,19 +16,19 @@
       "news": [
         {
           "headline": "Can Strong Demand in Now Assist Boost ServiceNow's AI Revenue Growth?",
-          "datetime": 1781286755,
+          "datetime": 1781292875,
           "source": "Yahoo Finance",
           "url": "https://finance.yahoo.com/markets/stocks/articles/strong-demand-now-assist-boost-131600943.html"
         },
         {
           "headline": "Update: US Equity Futures Rise Pre-Bell on Middle East Peace Deal Optimism",
-          "datetime": 1781286755,
+          "datetime": 1781292875,
           "source": "Yahoo Finance",
           "url": "https://finance.yahoo.com/markets/stocks/articles/us-equity-futures-rise-pre-130051096.html"
         },
         {
           "headline": "Latest News In Cloud AI - Akamai Strengthens Cloud Security With Microsoft Partnership",
-          "datetime": 1781286755,
+          "datetime": 1781292875,
           "source": "Yahoo Finance",
           "url": "https://finance.yahoo.com/sectors/technology/articles/latest-news-cloud-ai-akamai-123754134.html"
         }
@@ -36,10 +36,10 @@
     },
     "NVDA": {
       "quote": {
-        "c": 205.22,
-        "d": 0.35,
-        "dp": 0.1708,
-        "regular": 205.22,
+        "c": 204.03,
+        "d": -0.84,
+        "dp": -0.41,
+        "regular": 204.03,
         "pre": null,
         "post": null,
         "prev_close": 204.87,
@@ -48,30 +48,30 @@
       "news": [
         {
           "headline": "Expect 'robust capability' from this KKR-backed AI venture: CEO",
-          "datetime": 1781286756,
+          "datetime": 1781292876,
           "source": "Yahoo Finance",
           "url": "https://finance.yahoo.com/video/expect-robust-capability-from-this-kkr-backed-ai-venture-ceo-211742674.html"
         },
         {
-          "headline": "AMD Is No Longer Just a CPU Stock, Says Citi",
-          "datetime": 1781286756,
+          "headline": "Wall Street Has 18 Buy Ratings on ConocoPhillips and Zero Sells. Our Price Target Says They Are All Wrong",
+          "datetime": 1781292876,
           "source": "Yahoo Finance",
-          "url": "https://finance.yahoo.com/markets/stocks/articles/amd-no-longer-just-cpu-173852668.html"
+          "url": "https://247wallst.com/investing/2026/06/12/wall-street-has-18-buy-ratings-on-conocophillips-and-zero-sells-our-price-target-says-they-are-all-wrong/"
         },
         {
-          "headline": "Move Over, New York! Why Texas Is Becoming ‘America’s New Center of Gravity’",
-          "datetime": 1781286756,
+          "headline": "SpaceX IPO: Here's How to Buy SPCX Stock Right Now",
+          "datetime": 1781292876,
           "source": "Yahoo Finance",
-          "url": "https://247wallst.com/investing/2026/06/12/move-over-new-york-why-texas-is-becoming-americas-new-center-of-gravity/"
+          "url": "https://www.fool.com/investing/2026/06/12/how-to-buy-spacex-stock-spcx-ipo-guide/"
         }
       ]
     },
     "LITE": {
       "quote": {
-        "c": 930.0,
-        "d": 40.4,
-        "dp": 4.542,
-        "regular": 930.0,
+        "c": 922.61,
+        "d": 33.01,
+        "dp": 3.7113,
+        "regular": 922.61,
         "pre": null,
         "post": null,
         "prev_close": 889.59,
@@ -80,19 +80,19 @@
       "news": [
         {
           "headline": "Lumentum Strengthens Liquidity Position: Is Long-Term Growth Safer?",
-          "datetime": 1781286756,
+          "datetime": 1781292876,
           "source": "Yahoo Finance",
           "url": "https://finance.yahoo.com/markets/stocks/articles/lumentum-strengthens-liquidity-position-long-130600132.html"
         },
         {
           "headline": "How AAOI Is Defying The Market Slump",
-          "datetime": 1781286756,
+          "datetime": 1781292876,
           "source": "Yahoo Finance",
           "url": "https://www.trefis.com/articles/602481/how-aaoi-is-defying-the-market-slump/2026-06-11"
         },
         {
           "headline": "These Nvidia-Backed Optical Stocks Have Slipped Lately. JPMorgan Analysts Recommend Buying The Dip",
-          "datetime": 1781286756,
+          "datetime": 1781292876,
           "source": "Yahoo Finance",
           "url": "https://www.investopedia.com/these-nvidia-backed-optical-stocks-have-slipped-lately-jpmorgan-analysts-recommend-buying-the-dip-lite-cohr-11995940"
         }
@@ -100,10 +100,10 @@
     },
     "ONDS": {
       "quote": {
-        "c": 9.54,
-        "d": -0.29,
-        "dp": -3.001,
-        "regular": 9.54,
+        "c": 9.32,
+        "d": -0.51,
+        "dp": -5.1373,
+        "regular": 9.32,
         "pre": null,
         "post": null,
         "prev_close": 9.83,
@@ -112,19 +112,19 @@
       "news": [
         {
           "headline": "Jim Cramer on Ondas: “I Can’t Get Behind a Meme Stock”",
-          "datetime": 1781286756,
+          "datetime": 1781292877,
           "source": "Yahoo Finance",
           "url": "https://finance.yahoo.com/markets/stocks/articles/jim-cramer-ondas-t-behind-144520793.html"
         },
         {
           "headline": "Ondas Unifies Defense Platform As Sentrycs Wins 2026 World Cup Security Role",
-          "datetime": 1781286756,
+          "datetime": 1781292877,
           "source": "Yahoo Finance",
           "url": "https://finance.yahoo.com/markets/stocks/articles/ondas-unifies-defense-platform-sentrycs-042844285.html"
         },
         {
           "headline": "Ondas Unveils LADOS Defense Platform Ahead of Eurosatory 2026 Launch",
-          "datetime": 1781286756,
+          "datetime": 1781292877,
           "source": "Yahoo Finance",
           "url": "https://finance.yahoo.com/sectors/technology/articles/ondas-unveils-lados-defense-platform-174326636.html"
         }
@@ -132,10 +132,10 @@
     },
     "MRVL": {
       "quote": {
-        "c": 287.7,
-        "d": 6.99,
-        "dp": 2.4901,
-        "regular": 287.7,
+        "c": 283.67,
+        "d": 2.96,
+        "dp": 1.0527,
+        "regular": 283.67,
         "pre": null,
         "post": null,
         "prev_close": 280.71,
@@ -144,30 +144,30 @@
       "news": [
         {
           "headline": "Adobe stock sinks as CFO departs for Marvell",
-          "datetime": 1781286757,
+          "datetime": 1781292877,
           "source": "Yahoo Finance",
           "url": "https://finance.yahoo.com/markets/stocks/article/adobe-stock-sinks-as-cfo-departs-for-marvell-131428894.html"
         },
         {
-          "headline": "Adobe trades revenue for reach as AI monetization stays elusive",
-          "datetime": 1781286757,
+          "headline": "Investing.com’s stocks of the week",
+          "datetime": 1781292877,
           "source": "Yahoo Finance",
-          "url": "https://www.proactiveinvestors.com/companies/news/1093846/adobe-trades-revenue-for-reach-as-ai-monetization-stays-elusive-1093846.html"
+          "url": "https://finance.yahoo.com/markets/stocks/articles/investing-com-stocks-week-182822822.html"
         },
         {
-          "headline": "Adobe's Strong Quarter Overshadowed by CFO Exit, Growth Uncertainty, RBC Says",
-          "datetime": 1781286757,
+          "headline": "Adobe CFO Heads to a Chip Firm. It’s All You Need to Know About Software’s Downfall.",
+          "datetime": 1781292877,
           "source": "Yahoo Finance",
-          "url": "https://finance.yahoo.com/markets/stocks/articles/adobe-apos-strong-quarter-overshadowed-151306415.html"
+          "url": "https://www.barrons.com/articles/adobe-earnings-stock-price-f259c4e5?siteid=yhoof2&yptr=yahoo"
         }
       ]
     },
     "GOOG": {
       "quote": {
-        "c": 359.65,
-        "d": 3.09,
-        "dp": 0.8652,
-        "regular": 359.65,
+        "c": 358.24,
+        "d": 1.68,
+        "dp": 0.4712,
+        "regular": 358.24,
         "pre": null,
         "post": null,
         "prev_close": 356.56,
@@ -175,22 +175,22 @@
       },
       "news": [
         {
+          "headline": "Strategy now holds 845k bitcoin or 4% of total supply",
+          "datetime": 1781292877,
+          "source": "Yahoo Finance",
+          "url": "https://finance.yahoo.com/video/strategy-now-holds-845k-bitcoin-or-4-of-total-supply-174254410.html"
+        },
+        {
           "headline": "Siri upgrades show promise, but questions remain",
-          "datetime": 1781286757,
+          "datetime": 1781292877,
           "source": "Yahoo Finance",
           "url": "https://finance.yahoo.com/video/siri-upgrades-show-promise-but-questions-remain-195225562.html"
         },
         {
-          "headline": "How Apple rebuilt Siri with Google's AI",
-          "datetime": 1781286757,
+          "headline": "Elon Musk's trillionaire leap carries big stakes for Nashville, Memphis",
+          "datetime": 1781292877,
           "source": "Yahoo Finance",
-          "url": "https://finance.yahoo.com/sectors/technology/article/how-apple-rebuilt-siri-with-googles-ai-184257746.html"
-        },
-        {
-          "headline": "Uber Evolving Into 'Everything App' With Expanding Margins, Tigress Says",
-          "datetime": 1781286757,
-          "source": "Yahoo Finance",
-          "url": "https://finance.yahoo.com/markets/stocks/articles/uber-evolving-apos-everything-app-173245370.html"
+          "url": "https://www.tennessean.com/story/money/2026/06/12/elon-musk-trillionaire-musk-tied-projects-impact-tennessee/90527177007/"
         }
       ]
     }
